@@ -4,6 +4,7 @@ var path = require('path');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var pg = require('pg');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -24,6 +25,20 @@ app.use(cookieParser());
 
 //app.use('/', index);
 app.use('/users', users);
+
+const pool = new pg.Pool({
+  user: 'postgres',
+  host: 'localhost',
+  database: 'skeam',
+  password: 'postgres',
+  port: 5432,
+  max: 10
+});
+
+pool.query('SELECT NOW()', (err, res) => {
+  console.log(res.rows);
+  pool.end();
+});
 
 // catch 404 and forward to error handler
 /*app.use(function(req, res, next) {
