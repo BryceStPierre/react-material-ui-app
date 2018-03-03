@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+//import logo from './logo.svg';
 import './App.css';
+
+import { Link } from 'react-router';
 
 class App extends Component {
   constructor(props) {
@@ -21,7 +23,6 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React</h1>
         </header>
         <p className="App-intro">
@@ -32,6 +33,13 @@ class App extends Component {
             <li key={user.id}>{user.test}</li>
           )}
         </ul>
+        <div>
+          <h3>Navigation</h3>
+          <ul role="nav">
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/about">About</Link></li>
+          </ul>
+        </div>
       </div>
     );
   }
