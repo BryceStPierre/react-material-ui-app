@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-//import logo from './logo.svg';
+import logo from './images/logo.png';
 //import './App.css';
 
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
@@ -17,6 +17,7 @@ import Hidden from 'material-ui/Hidden';
 import Divider from 'material-ui/Divider';
 import MenuIcon from 'material-ui-icons/Menu';
 import InboxIcon from 'material-ui-icons/Inbox';
+import InfoOutlineIcon from 'material-ui-icons/InfoOutline';
 //import { mailFolderListItems, otherMailFolderListItems } from './tileData';
 
 import Home from './pages/Home';
@@ -49,6 +50,9 @@ const styles = theme => ({
     [theme.breakpoints.up('md')]: {
       display: 'none',
     },
+  },
+  logo: {
+    maxHeight: 40
   },
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
@@ -92,7 +96,7 @@ class ResponsiveDrawer extends React.Component {
         <List>
           <ListItem button component={Link} to="/about">
             <ListItemIcon>
-              <InboxIcon />
+              <InfoOutlineIcon />
             </ListItemIcon>
             <ListItemText primary="About" />
           </ListItem>
@@ -114,8 +118,9 @@ class ResponsiveDrawer extends React.Component {
               <MenuIcon />
             </IconButton>
             <Typography variant="title" color="inherit" noWrap>
-              Skeam
+              <img src={logo} alt="logo" className={classes.logo} />
             </Typography>
+            
           </Toolbar>
         </AppBar>
         <Hidden mdUp>
