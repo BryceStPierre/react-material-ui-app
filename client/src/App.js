@@ -1,38 +1,165 @@
 import React, { Component } from 'react';
 //import logo from './logo.svg';
-import './App.css';
+//import './App.css';
 
-export default class App extends Component {
-  constructor(props) {
-    super(props)
-  
-    this.state = {
-       users: []
-    };
-  }
-  
-  componentDidMount() {
-    fetch('/users')
-      .then(res => res.json())
-      .then(users => this.setState({ users }));
-  }
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import { withStyles } from 'material-ui/styles';
+import Drawer from 'material-ui/Drawer';
+import AppBar from 'material-ui/AppBar';
+import Toolbar from 'material-ui/Toolbar';
+import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
+import Typography from 'material-ui/Typography';
+import IconButton from 'material-ui/IconButton';
+import Hidden from 'material-ui/Hidden';
+import Divider from 'material-ui/Divider';
+import MenuIcon from 'material-ui-icons/Menu';
+import InboxIcon from 'material-ui-icons/Inbox';
+//import { mailFolderListItems, otherMailFolderListItems } from './tileData';
+
+import Home from './pages/Home';
+import About from './pages/About';
+
+const drawerWidth = 240;
+
+const styles = theme => ({
+  root: {
+    flexGrow: 1,
+    //height: 430,
+    zIndex: 1,
+    overflow: 'hidden',
+    position: 'relative',
+    display: 'flex',
+    width: '100%',
+  },
+  appBar: {
+    position: 'absolute',
+    marginLeft: drawerWidth,
+    [theme.breakpoints.up('md')]: {
+      width: `calc(100% - ${drawerWidth}px)`,
+    },
+  },
+  menuButton: {
+    //marginLeft: 12,
+    marginRight: 20,
+  },
+  navIconHide: {
+    [theme.breakpoints.up('md')]: {
+      display: 'none',
+    },
+  },
+  toolbar: theme.mixins.toolbar,
+  drawerPaper: {
+    width: drawerWidth,
+    [theme.breakpoints.up('md')]: {
+      position: 'relative',
+    },
+  },
+  content: {
+    flexGrow: 1,
+    backgroundColor: theme.palette.background.default,
+    padding: theme.spacing.unit * 3,
+  },
+});
+
+class ResponsiveDrawer extends React.Component {
+  state = {
+    mobileOpen: false,
+  };
+
+  handleDrawerToggle = () => {
+    this.setState({ mobileOpen: !this.state.mobileOpen });
+  };
 
   render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-        <h2>Data</h2>
-        <ul>
-          { this.state.users.map(user =>
-            <li key={user.id}>{user.test}</li>
-          )}
-        </ul>
+    const { classes, theme } = this.props;
+
+    const drawer = (
+      <div>
+        <div className={classes.toolbar} />
+        <Divider />
+        <List>
+          <ListItem button component={Link} to="/">
+            <ListItemIcon>
+              <InboxIcon />
+            </ListItemIcon>
+            <ListItemText primary="Inbox" />
+          </ListItem>
+        </List>
+        <Divider />
+        <List>
+          <ListItem button component={Link} to="/about">
+            <ListItemIcon>
+              <InboxIcon />
+            </ListItemIcon>
+            <ListItemText primary="About" />
+          </ListItem>
+        </List>
       </div>
+    );
+
+    return (
+      <Router>
+      <div className={classes.root}>
+        <AppBar className={classes.appBar}>
+          <Toolbar>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={this.handleDrawerToggle}
+              className={classNames(classes.navIconHide, classes.menuButton)}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="title" color="inherit" noWrap>
+              Skeam
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        <Hidden mdUp>
+          <Drawer
+            variant="temporary"
+            anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+            open={this.state.mobileOpen}
+            onClose={this.handleDrawerToggle}
+            classes={{
+              paper: classes.drawerPaper,
+            }}
+            ModalProps={{
+              keepMounted: true, // Better open performance on mobile.
+            }}
+          >
+            {drawer}
+          </Drawer>
+        </Hidden>
+        <Hidden smDown implementation="css">
+          <Drawer
+            variant="permanent"
+            open
+            classes={{
+              paper: classes.drawerPaper,
+            }}
+          >
+            {drawer}
+          </Drawer>
+        </Hidden>
+        <main className={classes.content}>
+          <div className={classes.toolbar} />
+          {/*<Typography noWrap>{'You think water moves fast? You should see ice.'}</Typography>*/}
+          <Route exact path="/" component={Home}/>
+          <Route path="/about" component={About}/>
+        </main>
+      </div>
+      </Router>
     );
   }
 }
+
+ResponsiveDrawer.propTypes = {
+  classes: PropTypes.object.isRequired,
+  theme: PropTypes.object.isRequired,
+};
+
+export default withStyles(styles, { withTheme: true })(ResponsiveDrawer);
