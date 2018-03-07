@@ -1,12 +1,23 @@
 {
   "name": "skeam",
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "A collaborative and open platform for ideas and more.",
   "private": true,
   "scripts": {
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "client": "npm start --prefix client",
     "server": "nodemon app"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BryceStPierre/skeam.git"
+  },
+  "author": "Bryce St. Pierre",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/BryceStPierre/skeam/issues"
+  },
+  "homepage": "https://github.com/BryceStPierre/skeam#readme",
   "dependencies": {
     "body-parser": "^1.18.2",
     "cookie-parser": "^1.4.3",
