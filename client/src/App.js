@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import logo from './images/logo.png';
-//import './App.css';
-
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+
+import logo from './images/logo.svg';
+
 import { withStyles } from 'material-ui/styles';
 import Drawer from 'material-ui/Drawer';
 import AppBar from 'material-ui/AppBar';
@@ -15,10 +14,9 @@ import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
 import Hidden from 'material-ui/Hidden';
 import Divider from 'material-ui/Divider';
+
 import MenuIcon from 'material-ui-icons/Menu';
-import InboxIcon from 'material-ui-icons/Inbox';
-import InfoOutlineIcon from 'material-ui-icons/InfoOutline';
-//import { mailFolderListItems, otherMailFolderListItems } from './tileData';
+import DescriptionIcon from 'material-ui-icons/Description';
 
 import Home from './pages/Home';
 import About from './pages/About';
@@ -52,7 +50,8 @@ const styles = theme => ({
     },
   },
   logo: {
-    maxHeight: 40
+    maxHeight: 55,
+    margin: '0 auto'
   },
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
@@ -68,10 +67,15 @@ const styles = theme => ({
   },
 });
 
-class ResponsiveDrawer extends React.Component {
-  state = {
-    mobileOpen: false,
-  };
+class App extends Component {
+  constructor(props) {
+    super(props)
+  
+    this.state = {
+      page: 'Home',
+      mobileOpen: false,
+    };
+  }
 
   handleDrawerToggle = () => {
     this.setState({ mobileOpen: !this.state.mobileOpen });
@@ -82,23 +86,52 @@ class ResponsiveDrawer extends React.Component {
 
     const drawer = (
       <div>
-        <div className={classes.toolbar} />
-        <Divider />
+        {/*<div className={classes.toolbar} />*/}
         <List>
-          <ListItem button component={Link} to="/">
-            <ListItemIcon>
-              <InboxIcon />
-            </ListItemIcon>
-            <ListItemText primary="Inbox" />
+          <ListItem component={Link} to="/" onClick={() => { this.setState({page: 'Home'}); }}>
+            <img src={logo} alt="logo" className={classes.logo} />
           </ListItem>
         </List>
         <Divider />
         <List>
-          <ListItem button component={Link} to="/about">
+          <ListItem button>
             <ListItemIcon>
-              <InfoOutlineIcon />
+              <DescriptionIcon />
             </ListItemIcon>
-            <ListItemText primary="About" />
+            <ListItemText primary="Page 1" />
+          </ListItem>
+          <ListItem button>
+            <ListItemIcon>
+              <DescriptionIcon />
+            </ListItemIcon>
+            <ListItemText primary="Page 2"/>
+          </ListItem>
+          <ListItem button>
+            <ListItemIcon>
+              <DescriptionIcon />
+            </ListItemIcon>
+            <ListItemText primary="Page 3"/>
+          </ListItem>
+        </List>
+        <Divider />
+        <List>
+          <ListItem button component={Link} to="/about" onClick={() => { this.setState({page: 'About'}); }}>
+            <ListItemIcon>
+              <DescriptionIcon />
+            </ListItemIcon>
+            <ListItemText primary="Explore" />
+          </ListItem>
+          <ListItem button>
+            <ListItemIcon>
+              <DescriptionIcon />
+            </ListItemIcon>
+            <ListItemText primary="Vision" />
+          </ListItem>
+          <ListItem button>
+            <ListItemIcon>
+              <DescriptionIcon />
+            </ListItemIcon>
+            <ListItemText primary="Help" />
           </ListItem>
         </List>
       </div>
@@ -106,65 +139,61 @@ class ResponsiveDrawer extends React.Component {
 
     return (
       <Router>
-      <div className={classes.root}>
-        <AppBar className={classes.appBar}>
-          <Toolbar>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              onClick={this.handleDrawerToggle}
-              className={classNames(classes.navIconHide, classes.menuButton)}
+        <div className={classes.root}>
+          <AppBar className={classes.appBar}>
+            <Toolbar>
+              <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                onClick={this.handleDrawerToggle}
+                className={classNames(classes.navIconHide, classes.menuButton)}
+              >
+                <MenuIcon />
+              </IconButton>
+              <Typography variant="title" color="inherit" noWrap>{this.state.page}</Typography>
+            </Toolbar>
+          </AppBar>
+          <Hidden mdUp>
+            <Drawer
+              variant="temporary"
+              anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+              open={this.state.mobileOpen}
+              onClose={this.handleDrawerToggle}
+              classes={{
+                paper: classes.drawerPaper,
+              }}
+              ModalProps={{
+                keepMounted: true, // Better open performance on mobile.
+              }}
             >
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="title" color="inherit" noWrap>
-              <img src={logo} alt="logo" className={classes.logo} />
-            </Typography>
-            
-          </Toolbar>
-        </AppBar>
-        <Hidden mdUp>
-          <Drawer
-            variant="temporary"
-            anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-            open={this.state.mobileOpen}
-            onClose={this.handleDrawerToggle}
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-            ModalProps={{
-              keepMounted: true, // Better open performance on mobile.
-            }}
-          >
-            {drawer}
-          </Drawer>
-        </Hidden>
-        <Hidden smDown implementation="css">
-          <Drawer
-            variant="permanent"
-            open
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-          >
-            {drawer}
-          </Drawer>
-        </Hidden>
-        <main className={classes.content}>
-          <div className={classes.toolbar} />
-          {/*<Typography noWrap>{'You think water moves fast? You should see ice.'}</Typography>*/}
-          <Route exact path="/" component={Home}/>
-          <Route path="/about" component={About}/>
-        </main>
-      </div>
+              {drawer}
+            </Drawer>
+          </Hidden>
+          <Hidden smDown implementation="css">
+            <Drawer
+              variant="permanent"
+              open
+              classes={{
+                paper: classes.drawerPaper,
+              }}
+            >
+              {drawer}
+            </Drawer>
+          </Hidden>
+          <main className={classes.content}>
+            <div className={classes.toolbar} />
+            <Route exact path="/" component={Home}/>
+            <Route path="/about" component={About}/>
+          </main>
+        </div>
       </Router>
     );
   }
 }
 
-ResponsiveDrawer.propTypes = {
+App.propTypes = {
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, { withTheme: true })(ResponsiveDrawer);
+export default withStyles(styles, { withTheme: true })(App);
