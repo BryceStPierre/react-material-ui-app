@@ -9,6 +9,7 @@ import { withStyles } from 'material-ui/styles';
 import Drawer from 'material-ui/Drawer';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
+import Button from 'material-ui/Button';
 import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
 import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
@@ -32,6 +33,9 @@ const styles = theme => ({
     position: 'relative',
     display: 'flex',
     width: '100%',
+  },
+  flex: {
+    flex: 1
   },
   appBar: {
     position: 'absolute',
@@ -150,7 +154,8 @@ class App extends Component {
               >
                 <MenuIcon />
               </IconButton>
-              <Typography variant="title" color="inherit" noWrap>{this.state.page}</Typography>
+              <Typography variant="title" color="inherit" className={classes.flex}>{this.state.page}</Typography>
+              <Button color="inherit">Login</Button>
             </Toolbar>
           </AppBar>
           <Hidden mdUp>
