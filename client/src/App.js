@@ -129,7 +129,7 @@ class App extends Component {
         </Hidden>
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          <Route path="/" component={Home}/>
+          <Route exact path="/" component={Home}/>
           <Route path="/about" component={About}/>
           <Route path="/login" component={Login}/>
         </main>
