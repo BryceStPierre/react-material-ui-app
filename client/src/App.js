@@ -19,8 +19,9 @@ import Divider from 'material-ui/Divider';
 import MenuIcon from 'material-ui-icons/Menu';
 import DescriptionIcon from 'material-ui-icons/Description';
 
-import Home from './pages/Home';
-import About from './pages/About';
+import Home from './Home';
+import About from './About';
+import DrawerItems from './components/DrawerItems';
 
 const drawerWidth = 240;
 
@@ -81,65 +82,16 @@ class App extends Component {
     };
   }
 
+  handleDrawerItemClick = (page) => {
+    this.setState({ page });
+  };
+
   handleDrawerToggle = () => {
     this.setState({ mobileOpen: !this.state.mobileOpen });
   };
 
   render() {
     const { classes, theme } = this.props;
-
-    const drawer = (
-      <div>
-        {/*<div className={classes.toolbar} />*/}
-        <List>
-          <ListItem component={Link} to="/" onClick={() => { this.setState({page: 'Home'}); }}>
-            <img src={logo} alt="logo" className={classes.logo} />
-          </ListItem>
-        </List>
-        <Divider />
-        <List>
-          <ListItem button>
-            <ListItemIcon>
-              <DescriptionIcon />
-            </ListItemIcon>
-            <ListItemText primary="Page 1" />
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon>
-              <DescriptionIcon />
-            </ListItemIcon>
-            <ListItemText primary="Page 2"/>
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon>
-              <DescriptionIcon />
-            </ListItemIcon>
-            <ListItemText primary="Page 3"/>
-          </ListItem>
-        </List>
-        <Divider />
-        <List>
-          <ListItem button component={Link} to="/about" onClick={() => { this.setState({page: 'About'}); }}>
-            <ListItemIcon>
-              <DescriptionIcon />
-            </ListItemIcon>
-            <ListItemText primary="Explore" />
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon>
-              <DescriptionIcon />
-            </ListItemIcon>
-            <ListItemText primary="Vision" />
-          </ListItem>
-          <ListItem button>
-            <ListItemIcon>
-              <DescriptionIcon />
-            </ListItemIcon>
-            <ListItemText primary="Help" />
-          </ListItem>
-        </List>
-      </div>
-    );
 
     return (
       <div className={classes.root}>
@@ -170,7 +122,7 @@ class App extends Component {
               keepMounted: true, // Better open performance on mobile.
             }}
           >
-            {drawer}
+            <DrawerItems onDrawerItemClick={this.handleDrawerItemClick}/>
           </Drawer>
         </Hidden>
         <Hidden smDown implementation="css">
@@ -181,7 +133,7 @@ class App extends Component {
               paper: classes.drawerPaper,
             }}
           >
-            {drawer}
+            <DrawerItems onDrawerItemClick={this.handleDrawerItemClick}/>
           </Drawer>
         </Hidden>
         <main className={classes.content}>
