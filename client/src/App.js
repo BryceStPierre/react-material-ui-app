@@ -3,24 +3,21 @@ import { Route, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import logo from './images/logo.svg';
-
 import { withStyles } from 'material-ui/styles';
 import Drawer from 'material-ui/Drawer';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Button from 'material-ui/Button';
-import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
+
 import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
 import Hidden from 'material-ui/Hidden';
-import Divider from 'material-ui/Divider';
 
 import MenuIcon from 'material-ui-icons/Menu';
-import DescriptionIcon from 'material-ui-icons/Description';
 
 import Home from './Home';
 import About from './About';
+import Login from './Login';
 import DrawerItems from './components/DrawerItems';
 
 const drawerWidth = 240;
@@ -28,7 +25,6 @@ const drawerWidth = 240;
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    //height: 430,
     zIndex: 1,
     overflow: 'hidden',
     position: 'relative',
@@ -46,17 +42,12 @@ const styles = theme => ({
     },
   },
   menuButton: {
-    //marginLeft: 12,
     marginRight: 20,
   },
   navIconHide: {
     [theme.breakpoints.up('md')]: {
       display: 'none',
     },
-  },
-  logo: {
-    maxHeight: 55,
-    margin: '0 auto'
   },
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
@@ -106,7 +97,7 @@ class App extends Component {
               <MenuIcon />
             </IconButton>
             <Typography variant="title" color="inherit" className={classes.flex}>{this.state.page}</Typography>
-            <Button color="inherit">Login</Button>
+            <Button color="inherit" component={Link} to="/login">Login</Button>
           </Toolbar>
         </AppBar>
         <Hidden mdUp>
@@ -138,8 +129,9 @@ class App extends Component {
         </Hidden>
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          <Route exact path="/" component={Home}/>
+          <Route path="/" component={Home}/>
           <Route path="/about" component={About}/>
+          <Route path="/login" component={Login}/>
         </main>
       </div>
     );
