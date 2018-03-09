@@ -11,7 +11,6 @@ import Card, { CardContent } from 'material-ui/Card';
 
 import FaFacebook from 'react-icons/lib/fa/facebook';
 import FaGoogle from 'react-icons/lib/fa/google';
-import Divider from 'material-ui/Divider';
 
 import axios from 'axios';
 
@@ -35,22 +34,13 @@ const styles = theme => ({
 });
 
 class Login extends Component {
-
   constructor(props) {
-    super(props)
+    super(props);
   
     this.state = {
       email: null,
       password: null
     };
-  }
-
-  componentWillMount () {
-    fetch('/users')
-      .then(res => res.json())
-      .then(res => {
-        console.log(res);
-      });
   }
   
   handleChange = (e) => {
@@ -62,24 +52,17 @@ class Login extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log(this.state);
-    // axios.post('/api/login', this.state)
-    //   .then(function (response) {
-    //     console.log(response);
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
+    
     fetch("/login", {
       method: "POST",
       body: JSON.stringify(this.state),
       headers: {"Content-Type": "application/json"}
     })
-      .then((res) => {
-        return res.json();
-      }).then((json) => {
-        console.log(json);
-      })
+    .then((res) => {
+      return res.json();
+    }).then((json) => {
+      console.log(json);
+    })
   }
 
   render() {
@@ -125,7 +108,7 @@ class Login extends Component {
               fullWidth
             >
               <FaGoogle className={classes.leftIcon} />
-              Sign In with Google
+              Continue with Google
             </Button>
             <br />
             <Button 
@@ -135,7 +118,7 @@ class Login extends Component {
               fullWidth
             >
               <FaFacebook className={classes.leftIcon} />
-              Sign In with Facebook
+              Continue with Facebook
             </Button>
           </form>
         </CardContent>
