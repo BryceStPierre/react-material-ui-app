@@ -13,6 +13,8 @@ import FaFacebook from 'react-icons/lib/fa/facebook';
 import FaGoogle from 'react-icons/lib/fa/google';
 import Divider from 'material-ui/Divider';
 
+import axios from 'axios';
+
 const styles = theme => ({
   container: {
     //display: 'flex',
@@ -52,6 +54,13 @@ class Login extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+    axios.post('/api/login', this.state)
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
   render() {
