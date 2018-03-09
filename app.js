@@ -1,14 +1,12 @@
 var express = require('express');
 var path = require('path');
-//var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-//var pg = require('pg');
 
-var index = require('./routes/index');
+//var index = require('./routes/index');
 var users = require('./routes/users');
-var login = require('./routes/login');
+var signin = require('./routes/signin');
 
 var app = express();
 
@@ -24,38 +22,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 //app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
-
 //app.use('/', index);
 app.use('/users', users);
-//app.use('/login', login);
-app.post('/login', function(req, res, next) {
-  console.log(req.body);
-  console.log(req.body.username, req.body.password);
-  res.json([
-    { id: 0, test: 'Hello' },
-    { id: 1, test: 'World' }
-  ]);
-});
+app.use('/api/signin', signin);
 
-var pool = require('./server/database');
+var db = require('./server/database');
 
-// const pool = new pg.Pool({
-//   user: 'postgres',
-//   host: 'localhost',
-//   database: 'skeam',
-//   password: 'postgres',
-//   port: 5432,
-//   max: 10
-// });
-
-pool.query('SELECT NOW()', (err, res) => {
-  console.log(res.rows);
-  pool.end();
+db.query('SELECT NOW()', (err, res) => {
+  console.log(`PostgreSQL connected: ${res.rows[0].now}.`);
+  db.end();
 });
 
 // catch 404 and forward to error handler

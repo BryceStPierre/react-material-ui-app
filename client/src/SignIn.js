@@ -1,13 +1,11 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
-
 import classNames from 'classnames';
-import { withStyles } from 'material-ui/styles';
 
+import { withStyles } from 'material-ui/styles';
+import Card, { CardContent } from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
-
-import Card, { CardContent } from 'material-ui/Card';
 
 import FaFacebook from 'react-icons/lib/fa/facebook';
 import FaGoogle from 'react-icons/lib/fa/google';
@@ -45,7 +43,7 @@ class SignIn extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     
-    fetch("/login", {
+    fetch("/api/signin", {
       method: "POST",
       body: JSON.stringify(this.state),
       headers: {"Content-Type": "application/json"}
