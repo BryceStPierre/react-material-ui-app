@@ -14,9 +14,12 @@ const styles = theme => ({
   control: {
     marginBottom: theme.spacing.unit,
   },
+  textInput: {
+    marginBottom: theme.spacing.unit * 4
+  },
   card: {
     minWidth: 275,
-    maxWidth: 400,
+    maxWidth: 325,
     margin: 'auto'
   },
   leftIcon: {
@@ -72,7 +75,7 @@ class SignIn extends Component {
             />
             <br />
             <TextField
-              className={classes.control}
+              className={classes.textInput}
               name="password"
               label="Password"
               type="password"
