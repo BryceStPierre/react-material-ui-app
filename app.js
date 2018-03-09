@@ -24,9 +24,23 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 //app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 //app.use('/', index);
 app.use('/users', users);
-app.use('/api/login', login);
+//app.use('/login', login);
+app.post('/login', function(req, res, next) {
+  console.log(req.body);
+  console.log(req.body.username, req.body.password);
+  res.json([
+    { id: 0, test: 'Hello' },
+    { id: 1, test: 'World' }
+  ]);
+});
 
 var pool = require('./server/database');
 

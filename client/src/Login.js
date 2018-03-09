@@ -44,6 +44,14 @@ class Login extends Component {
       password: null
     };
   }
+
+  componentWillMount () {
+    fetch('/users')
+      .then(res => res.json())
+      .then(res => {
+        console.log(res);
+      });
+  }
   
   handleChange = (e) => {
     this.setState({
@@ -54,13 +62,24 @@ class Login extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('/api/login', this.state)
-      .then(function (response) {
-        console.log(response);
+    console.log(this.state);
+    // axios.post('/api/login', this.state)
+    //   .then(function (response) {
+    //     console.log(response);
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   });
+    fetch("/login", {
+      method: "POST",
+      body: JSON.stringify(this.state),
+      headers: {"Content-Type": "application/json"}
+    })
+      .then((res) => {
+        return res.json();
+      }).then((json) => {
+        console.log(json);
       })
-      .catch(function (error) {
-        console.log(error);
-      });
   }
 
   render() {
@@ -91,6 +110,7 @@ class Login extends Component {
             <br />
             <Button
               className={classes.button}
+              type="submit"
               variant="raised" 
               color="primary"
               fullWidth
