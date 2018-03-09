@@ -16,8 +16,7 @@ import Hidden from 'material-ui/Hidden';
 import MenuIcon from 'material-ui-icons/Menu';
 
 import Home from './Home';
-import About from './About';
-import Login from './Login';
+import SignIn from './SignIn';
 import DrawerItems from './components/DrawerItems';
 
 const drawerWidth = 240;
@@ -97,7 +96,7 @@ class App extends Component {
               <MenuIcon />
             </IconButton>
             <Typography variant="title" color="inherit" className={classes.flex}>{this.state.page}</Typography>
-            <Button color="inherit" component={Link} to="/login">Login</Button>
+            <Button color="inherit" component={Link} to="/signin">Sign In</Button>
           </Toolbar>
         </AppBar>
         <Hidden mdUp>
@@ -130,8 +129,7 @@ class App extends Component {
         <main className={classes.content}>
           <div className={classes.toolbar} />
           <Route exact path="/" component={Home}/>
-          <Route path="/about" component={About}/>
-          <Route path="/login" component={Login}/>
+          <Route path="/signin" component={SignIn}/>
         </main>
       </div>
     );

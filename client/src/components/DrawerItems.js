@@ -1,10 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import logo from '../images/logo.svg';
 
-import { Link } from 'react-router-dom';
 import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
-
 import Divider from 'material-ui/Divider';
 import DescriptionIcon from 'material-ui-icons/Description';
 
@@ -40,7 +39,7 @@ export default function DrawerItems (props) {
       </List>
       <Divider />
       <List>
-        <ListItem button component={Link} to="/about" onClick={() => { props.onDrawerItemClick('About'); }}>
+        <ListItem button>
           <ListItemIcon>
             <DescriptionIcon />
           </ListItemIcon>

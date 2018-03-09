@@ -12,16 +12,9 @@ import Card, { CardContent } from 'material-ui/Card';
 import FaFacebook from 'react-icons/lib/fa/facebook';
 import FaGoogle from 'react-icons/lib/fa/google';
 
-import axios from 'axios';
-
 const styles = theme => ({
-  container: {
-    //display: 'flex',
-    //flexWrap: 'wrap',
-  },
-  button: {
+  control: {
     marginBottom: theme.spacing.unit,
-    //width: 'auto'
   },
   card: {
     minWidth: 275,
@@ -33,7 +26,7 @@ const styles = theme => ({
   }
 });
 
-class Login extends Component {
+class SignIn extends Component {
   constructor(props) {
     super(props);
   
@@ -47,7 +40,6 @@ class Login extends Component {
     this.setState({
       [e.target.name]: e.target.value
     });
-    console.log(this.state);
   }
 
   handleSubmit = (e) => {
@@ -72,7 +64,7 @@ class Login extends Component {
         <CardContent>
           <form onSubmit={this.handleSubmit}>
             <TextField
-              className={classes.button}
+              className={classes.control}
               name="email"
               label="Email"
               type="text"
@@ -82,7 +74,7 @@ class Login extends Component {
             />
             <br />
             <TextField
-              className={classes.button}
+              className={classes.control}
               name="password"
               label="Password"
               type="password"
@@ -92,7 +84,7 @@ class Login extends Component {
             />
             <br />
             <Button
-              className={classes.button}
+              className={classes.control}
               type="submit"
               variant="raised" 
               color="primary"
@@ -102,7 +94,7 @@ class Login extends Component {
             </Button>
             <br />
             <Button
-              className={classes.button}
+              className={classes.control}
               variant="raised" 
               color="secondary"
               fullWidth
@@ -112,7 +104,7 @@ class Login extends Component {
             </Button>
             <br />
             <Button 
-              className={classes.button}
+              className={classes.control}
               variant="raised" 
               color="secondary"
               fullWidth
@@ -127,8 +119,8 @@ class Login extends Component {
   }
 }
 
-Login.propTypes = {
+SignIn.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Login);
+export default withStyles(styles)(SignIn);
