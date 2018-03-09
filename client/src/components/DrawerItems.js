@@ -62,13 +62,13 @@ export default function DrawerItems (props) {
           <ListItemIcon>
             <DescriptionIcon />
           </ListItemIcon>
-          <ListItemText primary="Privacy Policy" />
+          <ListItemText primary="Terms of Use" />
         </ListItem>
         <ListItem button>
           <ListItemIcon>
             <DescriptionIcon />
           </ListItemIcon>
-          <ListItemText primary="Terms and Conditions" />
+          <ListItemText primary="Privacy Policy" />
         </ListItem>
       </List>
     </div>
