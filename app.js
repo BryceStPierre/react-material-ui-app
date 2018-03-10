@@ -16,13 +16,10 @@ var signin = require('./server/routes/signin');
 
 var app = express();
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
-//app.use(express.static(path.join(__dirname, 'public')));
 
 //app.use('/', index);
 app.use('/users', users);
@@ -31,7 +28,7 @@ app.use('/api/signin', signin);
 var db = require('./server/database');
 
 db.query('SELECT NOW()', (res) => {
-  console.log(`PostgreSQL connected: ${res.rows[0].now}.`);
+  console.log(`PostgreSQL connected: ${res[0].now}.`);
 });
 
 app.listen(3001, () => {
