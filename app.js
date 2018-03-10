@@ -7,16 +7,12 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 
 //var index = require('./routes/index');
-var users = require('./routes/users');
-var signin = require('./routes/signin');
+var users = require('./server/routes/users');
+var signin = require('./server/routes/signin');
 
-/*passport.use(new LocalStrategy(
-  function(username, password, callback) {
-
-}));*/
-
-var Users = require('./server/models/users');
-console.log(Users.findByEmail('example'));
+// passport.use(new LocalStrategy(
+//   function(username, password, callback) {
+// }));
 
 var app = express();
 

@@ -1,16 +1,13 @@
 const db = require('../database');
 
 class Users {
+  static create () {}
 
-  //
-  static findByEmail (email, callback) {
+  static retrieve (email, callback) {
     db.query(`SELECT * FROM users WHERE email=$1`, [email], function (res) {
-      //if (err) callback(err, null);
-      if (res) callback(res);
+      callback(res ? res[0] : null);
     });
   }
-
-  static create () {}
 
   static update () {}
 
