@@ -31,9 +31,8 @@ app.use('/api/signin', signin);
 
 var db = require('./server/database');
 
-db.query('SELECT NOW()', (err, res) => {
+db.query('SELECT NOW()', (res) => {
   console.log(`PostgreSQL connected: ${res.rows[0].now}.`);
-  db.end();
 });
 
 app.listen(3001, () => {
