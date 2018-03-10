@@ -2,13 +2,19 @@ const db = require('../database');
 
 class Users {
 
-  findByEmail (email) {
-    db.query(`SELECT * FROM users WHERE email = ${email}`, function (err, res) {
+  //
+  static findByEmail (email, callback) {
+    db.query(`SELECT * FROM users WHERE email=$1`, [email], function (res) {
       //if (err) callback(err, null);
-      console.log(err, res);
+      if (res) callback(res);
     });
   }
 
+  static create () {}
+
+  static update () {}
+
+  static delete () {}
 }
 
-module.exports = new Users();
+module.exports = Users;

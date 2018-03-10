@@ -15,6 +15,9 @@ var signin = require('./routes/signin');
 
 }));*/
 
+var Users = require('./server/models/users');
+console.log(Users.findByEmail('example'));
+
 var app = express();
 
 // uncomment after placing your favicon in /public

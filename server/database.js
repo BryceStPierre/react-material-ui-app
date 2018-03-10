@@ -1,6 +1,8 @@
 var pg = require('pg');
 
 class Database {
+  
+  // Initializes a pool of connections.
   constructor () {
     this._pool = new pg.Pool({
       user: 'postgres',
@@ -18,6 +20,7 @@ class Database {
     });
   }
 
+  // Returns rows affect by the query, or null otherwise.
   query (query, ...args) {
     this._pool.connect((err, client, done) => {
       if (err) throw err;
@@ -29,11 +32,12 @@ class Database {
         if (err)
           console.log(err.stack);
         else
-          callback(res);
+          callback(res.rows.length > 0 ? res.rows : null);
       });
     });
   }
 
+  // Terminates the connection pool.
   end () {
     this._pool.end();
   }
