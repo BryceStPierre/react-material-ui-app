@@ -3,16 +3,13 @@ var path = require('path');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
+var session = require('express-session');
+
+var passport = require('./server/passport');
 
 //var index = require('./routes/index');
 var users = require('./server/routes/users');
 var signin = require('./server/routes/signin');
-
-// passport.use(new LocalStrategy(
-//   function(username, password, callback) {
-// }));
 
 var app = express();
 
@@ -20,13 +17,16 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 //app.use('/', index);
 app.use('/users', users);
-app.use('/api/signin', signin);
+app.use('/api/signin', signin(passport));
 
 var db = require('./server/database');
-
 db.query('SELECT NOW()', (res) => {
   console.log(`PostgreSQL connected: ${res[0].now}.`);
 });

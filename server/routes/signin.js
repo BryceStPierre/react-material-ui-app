@@ -1,18 +1,11 @@
 var express = require('express');
 var router = express.Router();
 
-var Users = require('../models/users');
-
-router.post('/', function(req, res, next) {
-
-  //Testing Users model.
-  Users.retrieve(req.body.email, (res) => {
-    console.log(res[0]);
+module.exports = function (passport) {
+  router.post('/', passport.authenticate('local'), function(req, res) {
+    console.log(req.user);
+    console.log('Authenticated successfully.');
+    res.json({});
   });
-
-  console.log(req.body);
-  console.log(req.body.email, req.body.password);
-  res.json({});
-});
-
-module.exports = router;
+  return router;
+};
