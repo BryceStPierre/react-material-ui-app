@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Link } from 'react-router-dom';
+import { Route, Link, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -17,7 +17,10 @@ import MenuIcon from 'material-ui-icons/Menu';
 
 import Home from './Home';
 import SignIn from './SignIn';
+import NotFound from './NotFound';
 import DrawerItems from './components/DrawerItems';
+
+import pageTitle from './utils/pageTitle';
 
 const drawerWidth = 240;
 
@@ -67,7 +70,8 @@ class App extends Component {
     super(props)
   
     this.state = {
-      page: 'Home',
+      page: null,
+      authenticated: false,
       mobileOpen: false,
     };
   }
@@ -80,6 +84,21 @@ class App extends Component {
     this.setState({ mobileOpen: !this.state.mobileOpen });
   };
 
+  componentWillMount () {
+    this.setTitle(this.props.location.pathname);
+  }
+
+  componentDidUpdate (prevProps) {
+    if (this.props.location !== prevProps.location) {
+      this.setTitle(this.props.location.pathname);
+    }
+  }
+
+  setTitle = (path) => {
+    const page = pageTitle(path);
+    this.setState({ page });
+  }
+  
   render() {
     const { classes, theme } = this.props;
 
@@ -96,7 +115,7 @@ class App extends Component {
               <MenuIcon />
             </IconButton>
             <Typography variant="title" color="inherit" className={classes.flex}>{this.state.page}</Typography>
-            <Button color="inherit" component={Link} to="/signin">Sign In</Button>
+            <Button color="inherit" component={Link} to="/sign-in">Sign In</Button>
           </Toolbar>
         </AppBar>
         <Hidden mdUp>
@@ -128,8 +147,11 @@ class App extends Component {
         </Hidden>
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          <Route exact path="/" component={Home}/>
-          <Route path="/signin" component={SignIn}/>
+          <Switch>
+            <Route exact path="/" component={Home}/>
+            <Route path="/sign-in" component={SignIn}/>
+            <Route component={NotFound} />
+          </Switch>
         </main>
       </div>
     );

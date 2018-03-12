@@ -1,0 +1,9 @@
+const routes = new Map([
+  ['/', 'Home'], 
+  ['/sign-in', 'Sign In']
+]);
+
+export default function pageTitle (path) {
+  const title = routes.get(path);
+  return title ? title : 'Broken Link';
+}

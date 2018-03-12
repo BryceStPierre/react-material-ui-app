@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
+import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 
 import { withStyles } from 'material-ui/styles';
 import Card, { CardContent } from 'material-ui/Card';
@@ -9,6 +9,7 @@ import Button from 'material-ui/Button';
 
 import FaFacebook from 'react-icons/lib/fa/facebook';
 import FaGoogle from 'react-icons/lib/fa/google';
+import Typography from 'material-ui/Typography';
 
 const styles = theme => ({
   control: {
@@ -32,15 +33,19 @@ class SignIn extends Component {
     super(props);
   
     this.state = {
-      email: null,
-      password: null
+      credentials: {
+        email: null,
+        password: null
+      },
+      error: false,
+      authenticated: false
     };
   }
   
   handleChange = (e) => {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
+    let credentials = Object.assign({}, this.state.credentials);
+    credentials[e.target.name] = e.target.value;
+    this.setState({ credentials });
   }
 
   handleSubmit = (e) => {
@@ -48,18 +53,28 @@ class SignIn extends Component {
     
     fetch("/api/signin", {
       method: "POST",
-      body: JSON.stringify(this.state),
+      body: JSON.stringify(this.state.credentials),
       headers: {"Content-Type": "application/json"}
     })
     .then((res) => {
+      if (res.status === 401) 
+        return false;
       return res.json();
     }).then((json) => {
-      console.log(json);
-    })
+      this.setState({ 
+        authenticated: json,
+        error: !json
+      });
+    });
   }
 
   render() {
     const { classes } = this.props;
+    const { authenticated, error } = this.state;
+
+    if (authenticated)
+      return <Redirect to='/profile' />;
+
     return (
       <Card className={classes.card}>
         <CardContent>
@@ -83,6 +98,7 @@ class SignIn extends Component {
               autoComplete="current-password"
               fullWidth
             />
+            { error && <Typography color="error">Invalid username or password.</Typography> }
             <br />
             <Button
               className={classes.control}
