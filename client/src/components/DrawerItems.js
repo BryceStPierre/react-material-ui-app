@@ -17,7 +17,6 @@ const styles = {
 export default function DrawerItems (props) {
   return (
     <div>
-      {/*<div className={classes.toolbar} />*/}
       <List>
         <ListItem component={Link} to="/">
           <img src={logo} alt="logo" style={styles.logo} />

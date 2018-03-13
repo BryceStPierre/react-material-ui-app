@@ -88,7 +88,15 @@ class App extends Component {
 
   handleDrawerToggle = () => {
     this.setState({ mobileOpen: !this.state.mobileOpen });
-  };
+  }
+
+  handleSignIn = (signedIn) => {
+    this.setState({ signedIn });
+  }
+
+  handleSignOut = () => {
+    // TODO...
+  }
 
   setTitle = (path) => {
     const page = pageTitle(path);
@@ -97,6 +105,7 @@ class App extends Component {
   
   render() {
     const { classes, theme } = this.props;
+    const { page, signedIn } = this.state;
 
     return (
       <div className={classes.root}>
@@ -110,8 +119,8 @@ class App extends Component {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="title" color="inherit" className={classes.flex}>{this.state.page}</Typography>
-            <Button color="inherit" component={Link} to="/sign-in">Sign In</Button>
+            <Typography variant="title" color="inherit" className={classes.flex}>{page}</Typography>
+            { !signedIn && <Button color="inherit" component={Link} to="/sign-in">Sign In</Button> }
           </Toolbar>
         </AppBar>
         <Hidden mdUp>
@@ -120,23 +129,17 @@ class App extends Component {
             anchor={theme.direction === 'rtl' ? 'right' : 'left'}
             open={this.state.mobileOpen}
             onClose={this.handleDrawerToggle}
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-            ModalProps={{
-              keepMounted: true, // Better open performance on mobile.
-            }}
+            classes={{ paper: classes.drawerPaper }}
+            ModalProps={{ keepMounted: true }}
           >
             <DrawerItems />
           </Drawer>
         </Hidden>
         <Hidden smDown implementation="css">
           <Drawer
-            variant="permanent"
             open
-            classes={{
-              paper: classes.drawerPaper,
-            }}
+            variant="permanent"
+            classes={{ paper: classes.drawerPaper }}
           >
             <DrawerItems />
           </Drawer>
@@ -145,7 +148,14 @@ class App extends Component {
           <div className={classes.toolbar} />
           <Switch>
             <Route exact path="/" component={Home}/>
-            <Route path="/sign-in" component={SignIn}/>
+            { !signedIn && 
+              <Route 
+                path="/sign-in" 
+                render={(routeProps) => (
+                  <SignIn {...routeProps} onSignIn={this.handleSignIn}/>
+                )}
+              />
+            }
             <Route component={NotFound} />
           </Switch>
         </main>

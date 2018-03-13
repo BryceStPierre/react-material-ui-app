@@ -68,6 +68,7 @@ class SignIn extends Component {
         authenticated: json,
         error: !json
       });
+      this.props.onSignIn(true);
     });
   }
 
