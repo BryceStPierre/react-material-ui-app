@@ -8,8 +8,8 @@ var session = require('express-session');
 var passport = require('./server/passport');
 
 //var index = require('./routes/index');
-var users = require('./server/routes/users');
-var signin = require('./server/routes/signin');
+var users = require('./server/api/users');
+var signin = require('./server/api/signin');
 
 var app = express();
 
