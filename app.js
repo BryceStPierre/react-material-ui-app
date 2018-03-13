@@ -6,9 +6,6 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 
 var passport = require('./server/passport');
-
-//var index = require('./routes/index');
-var users = require('./server/api/users');
 var signin = require('./server/api/signin');
 
 var app = express();
@@ -22,8 +19,6 @@ app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: fals
 app.use(passport.initialize());
 app.use(passport.session());
 
-//app.use('/', index);
-app.use('/users', users);
 app.use('/api/signin', signin(passport));
 
 var db = require('./server/database');
