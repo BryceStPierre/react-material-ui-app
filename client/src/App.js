@@ -71,18 +71,10 @@ class App extends Component {
   
     this.state = {
       page: null,
-      authenticated: false,
+      signedIn: false,
       mobileOpen: false,
     };
   }
-
-  handleDrawerItemClick = (page) => {
-    this.setState({ page });
-  };
-
-  handleDrawerToggle = () => {
-    this.setState({ mobileOpen: !this.state.mobileOpen });
-  };
 
   componentWillMount () {
     this.setTitle(this.props.location.pathname);
@@ -93,6 +85,10 @@ class App extends Component {
       this.setTitle(this.props.location.pathname);
     }
   }
+
+  handleDrawerToggle = () => {
+    this.setState({ mobileOpen: !this.state.mobileOpen });
+  };
 
   setTitle = (path) => {
     const page = pageTitle(path);
@@ -131,7 +127,7 @@ class App extends Component {
               keepMounted: true, // Better open performance on mobile.
             }}
           >
-            <DrawerItems onDrawerItemClick={this.handleDrawerItemClick}/>
+            <DrawerItems />
           </Drawer>
         </Hidden>
         <Hidden smDown implementation="css">
@@ -142,7 +138,7 @@ class App extends Component {
               paper: classes.drawerPaper,
             }}
           >
-            <DrawerItems onDrawerItemClick={this.handleDrawerItemClick}/>
+            <DrawerItems />
           </Drawer>
         </Hidden>
         <main className={classes.content}>
