@@ -6,6 +6,8 @@ import { withStyles } from 'material-ui/styles';
 import Card, { CardContent } from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
+import AppBar from 'material-ui/AppBar';
+import Tabs, { Tab } from 'material-ui/Tabs';
 
 import FaFacebook from 'react-icons/lib/fa/facebook';
 import FaGoogle from 'react-icons/lib/fa/google';
@@ -15,8 +17,8 @@ const styles = theme => ({
   control: {
     marginBottom: theme.spacing.unit,
   },
-  textInput: {
-    marginBottom: theme.spacing.unit * 4
+  gap: {
+    marginBottom: theme.spacing.unit * 2
   },
   card: {
     minWidth: 275,
@@ -37,6 +39,7 @@ class SignIn extends Component {
         email: null,
         password: null
       },
+      value: 0,
       error: false,
       authenticated: false
     };
@@ -70,35 +73,43 @@ class SignIn extends Component {
 
   render() {
     const { classes } = this.props;
-    const { authenticated, error } = this.state;
+    const { authenticated, error, value } = this.state;
 
     if (authenticated)
       return <Redirect to='/profile' />;
 
     return (
       <Card className={classes.card}>
+        <AppBar position="static" color="default">
+          <Tabs value={value} fullWidth>
+            <Tab label="Sign In" />
+            <Tab label="Sign Up" />
+          </Tabs>
+        </AppBar>
         <CardContent>
           <form onSubmit={this.handleSubmit}>
             <TextField
               className={classes.control}
               name="email"
-              label="Email"
+              label="Email Address"
               type="text"
+              error={error}
               onChange={this.handleChange}
               autoComplete="current-email"
               fullWidth
             />
             <br />
             <TextField
-              className={classes.textInput}
+              className={classes.gap}
               name="password"
               label="Password"
               type="password"
+              error={error}
               onChange={this.handleChange}
               autoComplete="current-password"
               fullWidth
             />
-            { error && <Typography color="error">Invalid username or password.</Typography> }
+            { error && <Typography align="center" color="error">Invalid email address or password.</Typography> }
             <br />
             <Button
               className={classes.control}
