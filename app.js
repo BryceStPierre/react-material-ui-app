@@ -10,11 +10,22 @@ var signin = require('./server/api/signin');
 
 var app = express();
 
+const cookieExpirationDate = new Date();
+const cookieExpirationDays = 365;
+cookieExpirationDate.setDate(cookieExpirationDate.getDate() + cookieExpirationDays);
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cookieParser());
-app.use(session({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
+app.use(cookieParser('keyboard cat'));
+app.use(session({ 
+  secret: 'keyboard cat', 
+  resave: false, 
+  saveUninitialized: false,
+  cookie: { 
+    expires: cookieExpirationDate 
+  }
+}));
 
 app.use(passport.initialize());
 app.use(passport.session());

@@ -8,7 +8,6 @@ import Drawer from 'material-ui/Drawer';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Button from 'material-ui/Button';
-
 import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
 import Hidden from 'material-ui/Hidden';
@@ -71,34 +70,40 @@ class App extends Component {
   
     this.state = {
       page: null,
+      user: null,
       signedIn: false,
       mobileOpen: false,
     };
   }
 
   componentWillMount () {
-    this.setTitle(this.props.location.pathname);
+    this.setPage(this.props.location.pathname);
+    fetch('/api/signin')
+      .then(res => res.json())
+      .then((user) => {
+        this.setState({ 
+          user: user, 
+          signedIn: user ? true : false 
+        });
+        console.log(this.state);
+      });
   }
 
   componentDidUpdate (prevProps) {
-    if (this.props.location !== prevProps.location) {
-      this.setTitle(this.props.location.pathname);
-    }
+    if (this.props.location !== prevProps.location)
+      this.setPage(this.props.location.pathname);
   }
 
   handleDrawerToggle = () => {
     this.setState({ mobileOpen: !this.state.mobileOpen });
   }
 
-  handleSignIn = (signedIn) => {
-    this.setState({ signedIn });
+  setSignedIn = (signedIn, user) => {
+    console.log(signedIn, user);
+    this.setState({ signedIn, user });
   }
 
-  handleSignOut = () => {
-    // TODO...
-  }
-
-  setTitle = (path) => {
+  setPage = (path) => {
     const page = pageTitle(path);
     this.setState({ page });
   }
@@ -121,6 +126,7 @@ class App extends Component {
             </IconButton>
             <Typography variant="title" color="inherit" className={classes.flex}>{page}</Typography>
             { !signedIn && <Button color="inherit" component={Link} to="/sign-in">Sign In</Button> }
+            { signedIn && <Button color="inherit">Sign Out</Button> }
           </Toolbar>
         </AppBar>
         <Hidden mdUp>
@@ -148,14 +154,12 @@ class App extends Component {
           <div className={classes.toolbar} />
           <Switch>
             <Route exact path="/" component={Home}/>
-            { !signedIn && 
-              <Route 
-                path="/sign-in" 
-                render={(routeProps) => (
-                  <SignIn {...routeProps} onSignIn={this.handleSignIn}/>
-                )}
-              />
-            }
+            <Route 
+              path="/sign-in" 
+              render={(routeProps) => (
+                <SignIn {...routeProps} onSignIn={this.setSignedIn}/>
+              )}
+            />
             <Route component={NotFound} />
           </Switch>
         </main>

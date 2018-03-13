@@ -9,6 +9,12 @@ class Users {
     });
   }
 
+  static retrieveById (id) {
+    db.query(`SELECT * FROM users WHERE id=$1`, [id], function (res) {
+      callback(res ? res[0] : null);
+    });
+  }
+
   static update () {}
 
   static delete () {}

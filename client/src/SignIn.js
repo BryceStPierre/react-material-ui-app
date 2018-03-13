@@ -44,6 +44,16 @@ class SignIn extends Component {
       authenticated: false
     };
   }
+
+  componentWillMount () {
+    // fetch('/api/signin')
+    //   .then(res => res.json())
+    //   .then((res) => {
+    //     console.log(res);
+    //     if (res)
+    //       this.setState({ authenticated: true });
+    //   });
+  }
   
   handleChange = (e) => {
     let credentials = Object.assign({}, this.state.credentials);
@@ -61,14 +71,16 @@ class SignIn extends Component {
     })
     .then((res) => {
       if (res.status === 401) 
-        return false;
+        return null;
       return res.json();
-    }).then((json) => {
-      this.setState({ 
-        authenticated: json,
-        error: !json
-      });
-      this.props.onSignIn(true);
+    }).then((user) => {
+      if (user) {
+        this.setState({ 
+          authenticated: true,
+          error: false
+        });
+      }
+      this.props.onSignIn(true, user);
     });
   }
 
@@ -84,7 +96,7 @@ class SignIn extends Component {
         <AppBar position="static" color="default">
           <Tabs value={value} fullWidth>
             <Tab label="Sign In" />
-            <Tab label="Sign Up" />
+            <Tab label="Create Account" />
           </Tabs>
         </AppBar>
         <CardContent>
