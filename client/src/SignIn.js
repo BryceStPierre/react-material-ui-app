@@ -44,17 +44,19 @@ class SignIn extends Component {
       authenticated: false
     };
   }
-
-  componentWillMount () {
-    // fetch('/api/signin')
-    //   .then(res => res.json())
-    //   .then((res) => {
-    //     console.log(res);
-    //     if (res)
-    //       this.setState({ authenticated: true });
-    //   });
-  }
   
+  componentWillMount () {
+    fetch('/api/signin', { credentials: 'include' })
+    .then(res => res.json())
+    .then((user) => {
+      if (user) {
+        this.setState({ 
+          authenticated: true
+        });
+      }
+    });
+  }
+
   handleChange = (e) => {
     let credentials = Object.assign({}, this.state.credentials);
     credentials[e.target.name] = e.target.value;
@@ -67,7 +69,8 @@ class SignIn extends Component {
     fetch("/api/signin", {
       method: "POST",
       body: JSON.stringify(this.state.credentials),
-      headers: {"Content-Type": "application/json"}
+      headers: {"Content-Type": "application/json"},
+      credentials: 'include'
     })
     .then((res) => {
       if (res.status === 401) 

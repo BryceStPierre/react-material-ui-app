@@ -78,15 +78,14 @@ class App extends Component {
 
   componentWillMount () {
     this.setPage(this.props.location.pathname);
-    fetch('/api/signin')
-      .then(res => res.json())
-      .then((user) => {
-        this.setState({ 
-          user: user, 
-          signedIn: user ? true : false 
-        });
-        console.log(this.state);
+    fetch('/api/signin', { credentials: 'include' })
+    .then(res => res.json())
+    .then((user) => {
+      this.setState({ 
+        user: user, 
+        signedIn: user ? true : false 
       });
+    });
   }
 
   componentDidUpdate (prevProps) {
@@ -99,7 +98,6 @@ class App extends Component {
   }
 
   setSignedIn = (signedIn, user) => {
-    console.log(signedIn, user);
     this.setState({ signedIn, user });
   }
 
@@ -157,7 +155,7 @@ class App extends Component {
             <Route 
               path="/sign-in" 
               render={(routeProps) => (
-                <SignIn {...routeProps} onSignIn={this.setSignedIn}/>
+                <SignIn {...routeProps} onSignIn={this.setSignedIn} isSignedIn={signedIn}/>
               )}
             />
             <Route component={NotFound} />

@@ -6,7 +6,7 @@ var Users = require('./models/users');
 passport.use(new Strategy(
   {usernameField: "email", passwordField: "password"},
   function(email, password, cb) {
-    Users.retrieve(email, function (user) {
+    Users.retrieveByEmail(email, function (user) {
       //if (err) { return cb(err) }
       if (!user) { return cb(null, false) }
       if (user.password != password) { return cb(null, false); }
@@ -22,10 +22,6 @@ passport.deserializeUser(function(id, cb) {
   Users.retrieveById(id, function (user) {
     cb(null, user);
   });
-  // db.users.findById(id, function (err, user) {
-  //   if (err) { return cb(err); }
-  //   cb(null, user);
-  // });
 });
 
 module.exports = passport;
