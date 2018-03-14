@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
-import { Redirect } from 'react-router-dom';
+import { Redirect, NavLink } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { withStyles } from 'material-ui/styles';
 import Card, { CardContent } from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
-import AppBar from 'material-ui/AppBar';
-import Tabs, { Tab } from 'material-ui/Tabs';
+import { FormControlLabel } from 'material-ui/Form';
+import Checkbox from 'material-ui/Checkbox';
 
 import FaFacebook from 'react-icons/lib/fa/facebook';
 import FaGoogle from 'react-icons/lib/fa/google';
@@ -37,9 +37,9 @@ class SignIn extends Component {
     this.state = {
       credentials: {
         email: null,
-        password: null
+        password: null,
+        remember: false
       },
-      value: 0,
       error: false,
       authenticated: false
     };
@@ -61,6 +61,13 @@ class SignIn extends Component {
     let credentials = Object.assign({}, this.state.credentials);
     credentials[e.target.name] = e.target.value;
     this.setState({ credentials });
+  }
+
+  handleRemember = (e, checked) => {
+    let credentials = Object.assign({}, this.state.credentials);
+    credentials.remember = checked;
+    this.setState({ credentials });
+    console.log(this.state.credentials);
   }
 
   handleSubmit = (e) => {
@@ -88,19 +95,13 @@ class SignIn extends Component {
 
   render() {
     const { classes } = this.props;
-    const { authenticated, error, value } = this.state;
+    const { authenticated, error } = this.state;
 
     if (authenticated)
       return <Redirect to='/profile' />;
 
     return (
       <Card className={classes.card}>
-        <AppBar position="static" color="primary">
-          <Tabs value={value} fullWidth>
-            <Tab label="Sign In" />
-            <Tab label="Register" />
-          </Tabs>
-        </AppBar>
         <CardContent>
           <form onSubmit={this.handleSubmit}>
             <TextField
@@ -111,11 +112,12 @@ class SignIn extends Component {
               error={error}
               onChange={this.handleChange}
               autoComplete="current-email"
+              autoFocus
               fullWidth
             />
             <br />
             <TextField
-              className={classes.gap}
+              className={classes.control}
               name="password"
               label="Password"
               type="password"
@@ -125,6 +127,18 @@ class SignIn extends Component {
               fullWidth
             />
             { error && <Typography align="center" color="error">Invalid email address or password.</Typography> }
+            <br />
+            <FormControlLabel
+              className={classes.control}
+              control={
+                <Checkbox
+                  checked={this.state.credentials.remember}
+                  onChange={this.handleRemember}
+                  value="remember"
+                />
+              }
+              label="Stay Signed In"
+            />
             <br />
             <Button
               className={classes.control}
@@ -147,7 +161,7 @@ class SignIn extends Component {
             </Button>
             <br />
             <Button 
-              className={classes.control}
+              className={classes.gap}
               variant="raised" 
               color="secondary"
               fullWidth
@@ -156,6 +170,12 @@ class SignIn extends Component {
               Continue with Facebook
             </Button>
           </form>
+          <Typography
+            align="center"
+            color="default"
+          >
+            Don't have an account? <NavLink to="/register">Register now.</NavLink>
+          </Typography>
         </CardContent>
       </Card>
     );
