@@ -22,6 +22,41 @@ const styles = theme => ({
 });
 
 export default class Register extends Component {
+  constructor(props) {
+    super(props)
+  
+    this.state = {
+      fields: {
+        email: null,
+        displayName: null,
+        password: null,
+        confirmPassword: null
+      },
+      error: false,
+      redirect: false
+    };
+  }
+
+  handleChange = (e) => {
+    let fields = Object.assign({}, this.state.fields);
+    fields[e.target.name] = e.target.value;
+    this.setState({ fields });
+  }
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+
+    fetch("/api/register", {
+
+    })
+    .then((res) => {
+
+    })
+    .then((user) => {
+
+    });
+  }
+  
   render() {
     return (
       <div>
