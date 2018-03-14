@@ -10,21 +10,21 @@ import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
-// const options = {
-//   palette: {
-//     primary: {
-
-//     }, secondary: {
-
-//     }, error: {
-
-//     }
-//   }, status: {
-
-//   }
-// };
-
-const theme = createMuiTheme();
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      light: '#9a67ea',
+      main: '#673ab7',
+      dark: '#320b86',
+      contrastText: '#fff'
+    }, secondary: {
+      light: '#67daff',
+      main: '#03a9f4',
+      dark: '#007ac1',
+      contrastText: '#000'
+    }
+  }
+});
 
 const AppWithRouter = withRouter(props => <App {...props} />);
 

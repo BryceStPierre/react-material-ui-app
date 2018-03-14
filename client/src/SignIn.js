@@ -77,13 +77,12 @@ class SignIn extends Component {
         return null;
       return res.json();
     }).then((user) => {
-      if (user) {
-        this.setState({ 
-          authenticated: true,
-          error: false
-        });
-      }
-      this.props.onSignIn(true, user);
+      if (user)
+        this.props.onSignIn(true, user);
+      this.setState({ 
+        authenticated: user ? true : false,
+        error: user ? false : true
+      });
     });
   }
 
@@ -96,10 +95,10 @@ class SignIn extends Component {
 
     return (
       <Card className={classes.card}>
-        <AppBar position="static" color="default">
+        <AppBar position="static" color="primary">
           <Tabs value={value} fullWidth>
             <Tab label="Sign In" />
-            <Tab label="Create Account" />
+            <Tab label="Register" />
           </Tabs>
         </AppBar>
         <CardContent>
