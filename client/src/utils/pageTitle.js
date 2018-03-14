@@ -1,9 +1,10 @@
 const routes = new Map([
-  ['/', 'Skeam'],
-  ['/sign-in', 'Sign In']
+  ['/', ''],
+  ['/sign-in', 'Sign In'],
+  ['/register', 'Register']
 ]);
 
 export default function pageTitle (path) {
-  const title = routes.get(path);
+  const title = path !== '/' ? routes.get(path) : '';
   return title ? title : 'Broken Link';
 }

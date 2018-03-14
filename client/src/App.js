@@ -16,6 +16,7 @@ import MenuIcon from 'material-ui-icons/Menu';
 
 import Home from './Home';
 import SignIn from './SignIn';
+import Register from './Register';
 import NotFound from './NotFound';
 import DrawerItems from './components/DrawerItems';
 
@@ -158,6 +159,7 @@ class App extends Component {
                 <SignIn {...routeProps} onSignIn={this.setSignedIn} isSignedIn={signedIn}/>
               )}
             />
+            <Route path="/register" component={Register}/>
             <Route component={NotFound} />
           </Switch>
         </main>

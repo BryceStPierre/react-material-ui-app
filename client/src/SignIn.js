@@ -98,7 +98,7 @@ class SignIn extends Component {
     const { authenticated, error } = this.state;
 
     if (authenticated)
-      return <Redirect to='/profile' />;
+      return <Redirect to='/explore' />;
 
     return (
       <Card className={classes.card}>
