@@ -19,7 +19,7 @@ export default function DrawerItems (props) {
     <div>
       <List>
         <ListItem component={Link} to="/">
-          <img src={logo} alt="logo" style={styles.logo} />
+          <img src={logo} alt="Logo" style={styles.logo} />
         </ListItem>
       </List>
       <Divider />
