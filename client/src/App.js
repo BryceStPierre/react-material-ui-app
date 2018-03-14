@@ -15,9 +15,9 @@ import Hidden from 'material-ui/Hidden';
 import MenuIcon from 'material-ui-icons/Menu';
 
 import Home from './Home';
-import SignIn from './SignIn';
-import Register from './Register';
 import NotFound from './NotFound';
+import SignIn from './components/forms/SignIn';
+import Register from './components/forms/Register';
 import DrawerItems from './components/DrawerItems';
 
 import pageTitle from './utils/pageTitle';
