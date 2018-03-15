@@ -76,18 +76,17 @@ class Register extends Component {
       return res.json();
     })
     .then((res) => {
-      if (res.existsError) {
-        //const 
-      } else {
-
-      }
-      //this.setState({ redirect: res });
+      this.setState({
+        redirect: res.user ? true : false,
+        emailError: res.emailError,
+        emailErrorText: res.emailError ? 'Sorry, an account with that email address already exists.' : ''
+      });
     });
   }
   
   render() {
     const { classes } = this.props;
-    const { redirect, error, errorText } = this.state;
+    const { redirect } = this.state;
 
     if (redirect)
       return <Redirect to='/explore' />;
@@ -101,7 +100,9 @@ class Register extends Component {
               name='email'
               label='Email Address'
               onChange={this.handleChange}
-              margin='normal'
+              helperText={this.state.emailErrorText}
+              error={this.state.emailError}
+              margin='dense'
               fullWidth
               required
               autoFocus
@@ -112,7 +113,7 @@ class Register extends Component {
               name='displayName'
               label='Display Name'
               onChange={this.handleChange}
-              margin='normal'
+              margin='dense'
               fullWidth
               required
             />
@@ -122,8 +123,8 @@ class Register extends Component {
               name='password'
               label='Password'
               onChange={this.handleChange}
-              error={error}
-              margin='normal'
+              error={this.state.passwordError}
+              margin='dense'
               fullWidth
               required
             />
@@ -134,9 +135,9 @@ class Register extends Component {
               name='confirmPassword'
               label='Confirm Password'
               onChange={this.handleChange}
-              helperText={errorText}
-              error={error}
-              margin='normal'
+              helperText={this.state.passwordErrorText}
+              error={this.state.passwordError}
+              margin='dense'
               fullWidth
               required
             />

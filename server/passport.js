@@ -5,22 +5,22 @@ var Users = require('./models/users');
 
 passport.use(new Strategy(
   {usernameField: "email", passwordField: "password"},
-  function(email, password, cb) {
+  function(email, password, done) {
     Users.retrieveByEmail(email, function (user) {
-      //if (err) { return cb(err) }
-      if (!user) { return cb(null, false) }
-      if (user.password != password) { return cb(null, false); }
-      return cb(null, user);
+      //if (err) { return done(err) }
+      if (!user) { return done(null, false) }
+      if (user.password != password) { return done(null, false); }
+      return done(null, user);
     });
   }));
 
-passport.serializeUser(function(user, cb) {
-  cb(null, user.id);
+passport.serializeUser(function(user, done) {
+  done(null, user.id);
 });
 
-passport.deserializeUser(function(id, cb) {
+passport.deserializeUser(function(id, done) {
   Users.retrieveById(id, function (user) {
-    cb(null, user);
+    done(null, user);
   });
 });
 
