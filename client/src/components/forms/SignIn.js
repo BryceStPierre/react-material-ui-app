@@ -15,7 +15,7 @@ import Typography from 'material-ui/Typography';
 
 const styles = theme => ({
   control: {
-    marginBottom: theme.spacing.unit,
+    marginBottom: theme.spacing.unit
   },
   gap: {
     marginBottom: theme.spacing.unit * 2
