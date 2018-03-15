@@ -8,6 +8,8 @@ var passport = require('./server/passport');
 var signin = require('./server/api/signin');
 var register = require('./server/api/register');
 
+const PORT = 3001;
+
 var app = express();
 
 app.use(cookieParser());
@@ -26,6 +28,6 @@ db.query('SELECT NOW()', (res) => {
   console.log(`PostgreSQL connected: ${res[0].now}.`);
 });
 
-app.listen(3001, () => {
+app.listen(PORT, () => {
   console.log(`Server running on port 3001...`);
 });
