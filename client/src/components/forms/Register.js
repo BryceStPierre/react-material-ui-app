@@ -9,7 +9,6 @@ import Button from 'material-ui/Button';
 
 import FaFacebook from 'react-icons/lib/fa/facebook';
 import FaGoogle from 'react-icons/lib/fa/google';
-import Typography from 'material-ui/Typography';
 
 const styles = theme => ({
   button: {
@@ -39,10 +38,21 @@ class Register extends Component {
         password: null,
         confirmPassword: null
       },
-      errorText: '',
-      error: false,
+      emailError: false,
+      emailErrorText: '',
+      passwordErrorText: '',
+      passwordError: false,
       redirect: false
     };
+  }
+
+  validatePassword = () => {
+    const { password, confirmPassword } = this.state.fields;
+    const error = password !== confirmPassword;
+    const errorText = error
+      ? 'Please ensure the password fields match.'
+      : '';
+    this.setState({ error, errorText });
   }
 
   handleChange = (e) => {
@@ -53,24 +63,24 @@ class Register extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log(this.state.fields);
-    const { password, confirmPassword } = this.state.fields;
-    const error = password !== confirmPassword;
-    const errorText = error
-      ? 'Please ensure the password fields match.'
-      : '';
-    this.setState({ error, errorText });
+
+    this.validatePassword();
 
     fetch('/api/register', {
       method: 'POST',
       body: JSON.stringify(this.state.fields),
-      headers: {'Content-Type': 'application/json'},
+      headers: { 'Content-Type': 'application/json' },
       credentials: 'include'
     })
     .then((res) => {
-      //return res.status !== 401;
+      return res.json();
     })
     .then((res) => {
+      if (res.existsError) {
+        //const 
+      } else {
+
+      }
       //this.setState({ redirect: res });
     });
   }
@@ -133,9 +143,9 @@ class Register extends Component {
             <br />
             <Button
               className={classes.button}
-              type="submit"
-              color="primary"
-              variant="raised" 
+              type='submit'
+              color='primary'
+              variant='raised'
               fullWidth
             >
               Register
@@ -143,8 +153,8 @@ class Register extends Component {
             <br />
             <Button
               className={classes.button}
-              color="secondary"
-              variant="raised"
+              color='secondary'
+              variant='raised'
               fullWidth
             >
               <FaGoogle className={classes.leftIcon} />
@@ -152,8 +162,8 @@ class Register extends Component {
             </Button>
             <br />
             <Button
-              color="secondary"
-              variant="raised"
+              color='secondary'
+              variant='raised'
               fullWidth
             >
               <FaFacebook className={classes.leftIcon} />
