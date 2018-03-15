@@ -8,6 +8,6 @@ CREATE TABLE users (
 	actual_name JSON,
 	joined TIMESTAMP DEFAULT current_timestamp
 );
+
 INSERT INTO users (email, password)
-VALUES
- ('test','test');
+  VALUES ('test','test');
