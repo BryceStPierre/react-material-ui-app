@@ -6,6 +6,7 @@ var session = require('express-session');
 
 var passport = require('./server/passport');
 var signin = require('./server/api/signin');
+var register = require('./server/api/register');
 
 var app = express();
 
@@ -18,6 +19,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use('/api/signin', signin(passport));
+app.use('/api/register', register(passport));
 
 var db = require('./server/database');
 db.query('SELECT NOW()', (res) => {

@@ -53,7 +53,7 @@ class Register extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-
+    console.log(this.state.fields);
     const { password, confirmPassword } = this.state.fields;
     const error = password !== confirmPassword;
     const errorText = error
@@ -68,10 +68,10 @@ class Register extends Component {
       credentials: 'include'
     })
     .then((res) => {
-      return res.status !== 401;
+      //return res.status !== 401;
     })
     .then((res) => {
-      this.setState({ redirect: res });
+      //this.setState({ redirect: res });
     });
   }
   
@@ -121,7 +121,7 @@ class Register extends Component {
             <TextField
               className={classes.gap}
               type='password'
-              name='confirmedPassword'
+              name='confirmPassword'
               label='Confirm Password'
               onChange={this.handleChange}
               helperText={errorText}
