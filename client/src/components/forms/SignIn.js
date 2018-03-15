@@ -47,7 +47,7 @@ class SignIn extends Component {
   
   componentWillMount () {
     fetch('/api/signin', { credentials: 'include' })
-    .then(res => res.json())
+    .then((res) => res.json())
     .then((user) => {
       if (user) {
         this.setState({ 
@@ -73,10 +73,10 @@ class SignIn extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     
-    fetch("/api/signin", {
-      method: "POST",
+    fetch('/api/signin', {
+      method: 'POST',
       body: JSON.stringify(this.state.credentials),
-      headers: {"Content-Type": "application/json"},
+      headers: {'Content-Type': 'application/json'},
       credentials: 'include'
     })
     .then((res) => {
@@ -106,45 +106,45 @@ class SignIn extends Component {
           <form onSubmit={this.handleSubmit}>
             <TextField
               className={classes.control}
-              name="email"
-              label="Email Address"
-              type="text"
-              error={error}
+              type='text'
+              name='email'
+              label='Email Address'
+              autoComplete='current-email'
               onChange={this.handleChange}
-              autoComplete="current-email"
-              autoFocus
+              error={error}
               fullWidth
+              autoFocus
             />
             <br />
             <TextField
               className={classes.control}
-              name="password"
-              label="Password"
-              type="password"
-              error={error}
+              type='password'
+              name='password'
+              label='Password'
+              autoComplete='current-password'
               onChange={this.handleChange}
-              autoComplete="current-password"
+              error={error}
               fullWidth
             />
-            { error && <Typography align="center" color="error">Invalid email address or password.</Typography> }
+            { error && <Typography align='center' color='error'>Invalid email address or password.</Typography> }
             <br />
             <FormControlLabel
               className={classes.control}
+              label='Stay Signed In'
               control={
                 <Checkbox
                   checked={this.state.credentials.remember}
                   onChange={this.handleRemember}
-                  value="remember"
+                  value='remember'
                 />
               }
-              label="Stay Signed In"
             />
             <br />
             <Button
               className={classes.control}
-              type="submit"
-              variant="raised" 
-              color="primary"
+              type='submit'
+              color='primary'
+              variant='raised'
               fullWidth
             >
               Sign In
@@ -152,8 +152,8 @@ class SignIn extends Component {
             <br />
             <Button
               className={classes.control}
-              variant="raised" 
-              color="secondary"
+              color='secondary'
+              variant='raised'
               fullWidth
             >
               <FaGoogle className={classes.leftIcon} />
@@ -162,8 +162,8 @@ class SignIn extends Component {
             <br />
             <Button 
               className={classes.gap}
-              variant="raised" 
-              color="secondary"
+              color='secondary'
+              variant='raised'
               fullWidth
             >
               <FaFacebook className={classes.leftIcon} />
@@ -171,10 +171,10 @@ class SignIn extends Component {
             </Button>
           </form>
           <Typography
-            align="center"
-            color="default"
+            align='center'
+            color='default'
           >
-            Don't have an account? <NavLink to="/register">Register now.</NavLink>
+            Don't have an account? <NavLink to='/register'>Register now.</NavLink>
           </Typography>
         </CardContent>
       </Card>
