@@ -1,8 +1,6 @@
 var pg = require('pg');
 
 class Database {
-  
-  // Initializes a pool of connections.
   constructor () {
     this._pool = new pg.Pool({
       user: 'postgres',
@@ -20,7 +18,6 @@ class Database {
     });
   }
 
-  // Returns rows affect by the query, or null otherwise.
   query (query, ...args) {
     this._pool.connect((err, client, done) => {
       if (err) throw err;
@@ -37,7 +34,6 @@ class Database {
     });
   }
 
-  // Terminates the connection pool.
   end () {
     this._pool.end();
   }
