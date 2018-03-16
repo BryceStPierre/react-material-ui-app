@@ -4,7 +4,7 @@ CREATE OR REPLACE FUNCTION insert_user(
   e VARCHAR,
   d VARCHAR,
   p VARCHAR) 
-RETURNS INT AS $$
+RETURNS TABLE (j JSON) AS $$
 BEGIN
   INSERT INTO users (email, display_name, password)
   SELECT $1, $2, $3
@@ -13,9 +13,9 @@ BEGIN
     );
 	
 	IF FOUND THEN
-		RETURN (SELECT id FROM users WHERE email = $1);
+		RETURN QUERY SELECT row_to_json(a) FROM (SELECT id, email, password, display_name FROM users WHERE email = $1) a;
 	ELSE
-		RETURN -1;
+		RETURN QUERY SELECT to_json(NULL::RECORD);
 	END IF;
 END; $$
 LANGUAGE plpgsql;

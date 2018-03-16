@@ -156,10 +156,15 @@ class App extends Component {
             <Route 
               path="/sign-in" 
               render={(routeProps) => (
-                <SignIn {...routeProps} onSignIn={this.setSignedIn} isSignedIn={signedIn}/>
+                <SignIn {...routeProps} onSignIn={this.setSignedIn} />
               )}
             />
-            <Route path="/register" component={Register}/>
+            <Route 
+              path="/register"
+              render={(routeProps) => (
+                <Register {...routeProps} onSignIn={this.setSignedIn} />
+              )}
+            />
             <Route component={NotFound} />
           </Switch>
         </main>

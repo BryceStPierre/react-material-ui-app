@@ -76,6 +76,8 @@ class Register extends Component {
       return res.json();
     })
     .then((res) => {
+      if (res.user)
+        this.props.onSignIn(true, res.user);
       this.setState({
         redirect: res.user ? true : false,
         emailError: res.emailError,
