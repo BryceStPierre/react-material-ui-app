@@ -15,6 +15,7 @@ import Hidden from 'material-ui/Hidden';
 import MenuIcon from 'material-ui-icons/Menu';
 
 import Home from './Home';
+import Explore from './Explore';
 import NotFound from './NotFound';
 import SignIn from './components/forms/SignIn';
 import Register from './components/forms/Register';
@@ -153,6 +154,7 @@ class App extends Component {
           <div className={classes.toolbar} />
           <Switch>
             <Route exact path="/" component={Home}/>
+            <Route path="/explore" component={Explore}/>
             <Route 
               path="/sign-in" 
               render={(routeProps) => (
