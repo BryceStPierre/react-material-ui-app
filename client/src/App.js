@@ -21,7 +21,7 @@ import SignIn from './components/forms/SignIn';
 import Register from './components/forms/Register';
 import DrawerItems from './components/DrawerItems';
 
-import pageTitle from './utils/pageTitle';
+import titleMap from './utils/titleMap';
 
 const drawerWidth = 240;
 
@@ -104,7 +104,7 @@ class App extends Component {
   }
 
   setPage = (path) => {
-    const page = pageTitle(path);
+    const page = titleMap(path);
     this.setState({ page });
   }
   

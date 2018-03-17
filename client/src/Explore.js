@@ -6,6 +6,11 @@ import { withStyles } from 'material-ui/styles';
 import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
 
+import GridList, { GridListTile, GridListTileBar } from 'material-ui/GridList';
+import Subheader from 'material-ui/List/ListSubheader';
+import IconButton from 'material-ui/IconButton';
+import InfoIcon from 'material-ui-icons/Info';
+
 const styles = theme => ({
   root: {
     textAlign: 'center'
@@ -54,6 +59,10 @@ class Explore extends Component {
         >
           Clear
         </Button>
+
+
+
+
       </div>
     );
   }

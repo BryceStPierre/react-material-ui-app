@@ -5,6 +5,6 @@ const routes = new Map([
   ['/register', 'Register']
 ]);
 
-export default function pageTitle (path) {
+export default function titleMap (path) {
   return routes.get(path) ? routes.get(path) : 'Error';
 }
