@@ -103,8 +103,8 @@ class Explore extends Component {
             </GridListTile>
 
             {tileData.map((tile, i) => (
-              <Grow timeout={{ enter: i * 500, exit: i * 500 + 500 }}  in>
-                <GridListTile key={tile.img}>
+              <Grow key={tile.img} timeout={{ enter: i * 500, exit: i * 500 + 500 }}  in>
+                <GridListTile>
                   <img src={tile.img} alt={tile.title} />
                   <GridListTileBar
                     title={tile.title}
