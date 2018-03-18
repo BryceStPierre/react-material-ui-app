@@ -114,7 +114,7 @@ class App extends Component {
 
     return (
       <div className={classes.root}>
-        <AppBar className={classes.appBar}>
+        <AppBar className={classes.appBar} position='sticky'>
           <Toolbar>
             <IconButton
               color="inherit"
