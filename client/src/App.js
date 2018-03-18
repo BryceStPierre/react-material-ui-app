@@ -38,7 +38,7 @@ const styles = theme => ({
     flex: 1
   },
   appBar: {
-    position: 'absolute',
+    position: 'fixed',
     marginLeft: drawerWidth,
     [theme.breakpoints.up('md')]: {
       width: `calc(100% - ${drawerWidth}px)`,
@@ -53,6 +53,9 @@ const styles = theme => ({
     },
   },
   toolbar: theme.mixins.toolbar,
+  drawer: {
+    
+  },
   drawerPaper: {
     width: drawerWidth,
     [theme.breakpoints.up('md')]: {
@@ -114,7 +117,7 @@ class App extends Component {
 
     return (
       <div className={classes.root}>
-        <AppBar className={classes.appBar} position='sticky'>
+        <AppBar className={classes.appBar}>
           <Toolbar>
             <IconButton
               color="inherit"
@@ -131,6 +134,7 @@ class App extends Component {
         </AppBar>
         <Hidden mdUp>
           <Drawer
+            className={classes.drawer}
             variant="temporary"
             anchor={theme.direction === 'rtl' ? 'right' : 'left'}
             open={this.state.mobileOpen}
@@ -143,6 +147,7 @@ class App extends Component {
         </Hidden>
         <Hidden smDown implementation="css">
           <Drawer
+            className={classes.drawer}
             open
             variant="permanent"
             classes={{ paper: classes.drawerPaper }}
