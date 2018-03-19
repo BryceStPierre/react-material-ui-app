@@ -51,13 +51,13 @@ export default function DrawerItems (props) {
           </ListItemIcon>
           <ListItemText primary="Help" />
         </ListItem>
-        <ListItem button component={Link} to="/terms">
+        <ListItem button component={Link} to="/terms-of-use">
           <ListItemIcon>
             <DescriptionIcon />
           </ListItemIcon>
           <ListItemText primary="Terms of Use" />
         </ListItem>
-        <ListItem button component={Link} to="/privacy">
+        <ListItem button component={Link} to="/privacy-policy">
           <ListItemIcon>
             <DescriptionIcon />
           </ListItemIcon>

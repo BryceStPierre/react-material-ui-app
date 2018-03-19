@@ -5,6 +5,7 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 
 var passport = require('./server/passport');
+
 var signin = require('./server/api/signin');
 var register = require('./server/api/register');
 
