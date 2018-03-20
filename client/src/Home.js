@@ -69,7 +69,7 @@ class Home extends Component {
           variant='title'
           gutterBottom
         >
-          A collaborative and open platform for ideas, and more.
+          A collaborative and open platform for ideas and more.
         </Typography>
         <img 
           className={classes.image} 
@@ -88,8 +88,8 @@ class Home extends Component {
         </Tooltip>
 
         <Modal
-          aria-labelledby="simple-modal-title"
-          aria-describedby="simple-modal-description"
+          aria-labelledby="modal-title"
+          aria-describedby="modal-description"
           open={this.state.modalOpen}
           onClose={this.handleModalClose}
         >
@@ -97,7 +97,7 @@ class Home extends Component {
             <Typography variant="title" id="modal-title">
               Create
             </Typography>
-            <Typography variant="subheading" id="simple-modal-description">
+            <Typography variant="subheading" id="modal-description">
               What will it be?
             </Typography>
             <Button
