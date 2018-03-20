@@ -30,18 +30,11 @@ const styles = theme => ({
   paper: {
     position: 'absolute',
     padding: 32,
-    width: 400,
+    width: 340,
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5]
   }
 });
-
-function getModalStyle() {
-  return {
-    top: `${(window.innerHeight - 230) / 2}px`,
-    left: `${(window.innerWidth - 400 - 64) / 2}px`
-  };
-}
 
 class Home extends Component {
   constructor(props) {
@@ -52,6 +45,13 @@ class Home extends Component {
     };
   }
   
+  getModalStyle = () => {
+    return {
+      top: `${(window.innerHeight - 208) / 2}px`,
+      left: `${(window.innerWidth - 340 - 64) / 2}px`
+    };
+  }
+
   handleModalOpen = () => {
     this.setState({ modalOpen: true });
   };
@@ -93,7 +93,7 @@ class Home extends Component {
           open={this.state.modalOpen}
           onClose={this.handleModalClose}
         >
-          <div style={getModalStyle()} className={classes.paper}>
+          <div style={this.getModalStyle()} className={classes.paper}>
             <Typography variant="title" id="modal-title">
               Create
             </Typography>

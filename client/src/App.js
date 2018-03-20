@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Link, Switch } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -11,14 +11,9 @@ import Button from 'material-ui/Button';
 import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
 import Hidden from 'material-ui/Hidden';
-
 import MenuIcon from 'material-ui-icons/Menu';
 
-import Home from './Home';
-import Explore from './Explore';
-import NotFound from './NotFound';
-import SignIn from './components/forms/SignIn';
-import Register from './components/forms/Register';
+import Routes from './Routes';
 import DrawerItems from './components/DrawerItems';
 
 import titleMap from './utils/titleMap';
@@ -32,7 +27,7 @@ const styles = theme => ({
     overflow: 'hidden',
     position: 'relative',
     display: 'flex',
-    width: '100%',
+    width: '100%'
   },
   flex: {
     flex: 1
@@ -42,30 +37,27 @@ const styles = theme => ({
     marginLeft: drawerWidth,
     [theme.breakpoints.up('md')]: {
       width: `calc(100% - ${drawerWidth}px)`,
-    },
+    }
   },
   menuButton: {
-    marginRight: 20,
+    marginRight: 20
   },
   navIconHide: {
     [theme.breakpoints.up('md')]: {
       display: 'none',
-    },
+    }
   },
   toolbar: theme.mixins.toolbar,
-  drawer: {
-    
-  },
   drawerPaper: {
     width: drawerWidth,
     [theme.breakpoints.up('md')]: {
       position: 'relative',
-    },
+    }
   },
   content: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
-    padding: theme.spacing.unit * 3,
+    padding: theme.spacing.unit * 3
   },
 });
 
@@ -83,14 +75,15 @@ class App extends Component {
 
   componentWillMount () {
     this.setPage(this.props.location.pathname);
+
     fetch('/api/signin', { credentials: 'include' })
-    .then(res => res.json())
-    .then((user) => {
-      this.setState({ 
-        user: user, 
-        signedIn: user ? true : false 
+      .then(res => res.json())
+      .then((user) => {
+        this.setState({ 
+          user: user, 
+          signedIn: user ? true : false 
+        });
       });
-    });
   }
 
   componentDidUpdate (prevProps) {
@@ -157,23 +150,7 @@ class App extends Component {
         </Hidden>
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          <Switch>
-            <Route exact path="/" component={Home}/>
-            <Route path="/explore" component={Explore}/>
-            <Route 
-              path="/sign-in" 
-              render={(routeProps) => (
-                <SignIn {...routeProps} onSignIn={this.setSignedIn} />
-              )}
-            />
-            <Route 
-              path="/register"
-              render={(routeProps) => (
-                <Register {...routeProps} onSignIn={this.setSignedIn} />
-              )}
-            />
-            <Route component={NotFound} />
-          </Switch>
+          <Routes onSignIn={this.setSignedIn} />
         </main>
       </div>
     );
