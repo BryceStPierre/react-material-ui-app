@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
+import Tooltip from 'material-ui/Tooltip';
 import AddIcon from 'material-ui-icons/Add';
+import Modal from 'material-ui/Modal';
 
 import thinker from './images/thinker.jpeg';
 
@@ -16,14 +19,47 @@ const styles = theme => ({
     width: '60%',
     margin: theme.spacing.unit * 2
   },
+  button: {
+    marginTop: theme.spacing.unit
+  },
   fab: {
     position: 'absolute',
     bottom: theme.spacing.unit * 4,
     right: theme.spacing.unit * 4
+  }, 
+  paper: {
+    position: 'absolute',
+    padding: 32,
+    width: 400,
+    backgroundColor: theme.palette.background.paper,
+    boxShadow: theme.shadows[5]
   }
 });
 
+function getModalStyle() {
+  return {
+    top: `${(window.innerHeight - 230) / 2}px`,
+    left: `${(window.innerWidth - 400 - 64) / 2}px`
+  };
+}
+
 class Home extends Component {
+  constructor(props) {
+    super(props);
+  
+    this.state = {
+      modalOpen: false
+    };
+  }
+  
+  handleModalOpen = () => {
+    this.setState({ modalOpen: true });
+  };
+
+  handleModalClose = () => {
+    this.setState({ modalOpen: false });
+  };
+
   render() {
     const { classes } = this.props;
 
@@ -40,13 +76,55 @@ class Home extends Component {
           src={thinker} 
           alt='Thinker' 
         />
-        <Button
-          className={classes.fab}
-          variant='fab'
-          color='primary'
+        <Tooltip title='Create' placement='left'>
+          <Button
+            className={classes.fab}
+            variant='fab'
+            color='primary'
+            onClick={this.handleModalOpen}
+          >
+            <AddIcon />
+          </Button>
+        </Tooltip>
+
+        <Modal
+          aria-labelledby="simple-modal-title"
+          aria-describedby="simple-modal-description"
+          open={this.state.modalOpen}
+          onClose={this.handleModalClose}
         >
-          <AddIcon />
-        </Button>
+          <div style={getModalStyle()} className={classes.paper}>
+            <Typography variant="title" id="modal-title">
+              Create
+            </Typography>
+            <Typography variant="subheading" id="simple-modal-description">
+              What will it be?
+            </Typography>
+            <Button
+              component={Link}
+              to='/create/skeam'
+              className={classes.button}
+              variant='raised'
+              color='primary'
+              size='large'
+              fullWidth
+            >
+              New Skeam
+            </Button>
+            <br />
+            <Button
+              component={Link}
+              to='/create/template'
+              className={classes.button}
+              variant='raised'
+              color='secondary'
+              size='large'
+              fullWidth
+            >
+              New Template
+            </Button>
+          </div>
+        </Modal>
       </div>
     );
   }

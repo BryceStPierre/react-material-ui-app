@@ -1,5 +1,5 @@
 const routes = new Map([
-  ['/', ' '],
+  ['/', 'Skeam'],
   ['/explore', 'Explore'],
   ['/sign-in', 'Sign In'],
   ['/register', 'Register']
