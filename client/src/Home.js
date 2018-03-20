@@ -13,7 +13,7 @@ const styles = theme => ({
     textAlign: 'center'
   },
   image: {
-    width: '80%',
+    width: '60%',
     margin: theme.spacing.unit * 2
   },
   fab: {
