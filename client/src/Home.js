@@ -33,7 +33,7 @@ class Home extends Component {
           variant='title'
           gutterBottom
         >
-          A platform for ideas, and more.
+          A collaborative and open platform for ideas, and more.
         </Typography>
         <img 
           className={classes.image} 
