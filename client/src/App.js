@@ -8,10 +8,12 @@ import Drawer from 'material-ui/Drawer';
 import AppBar from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import Button from 'material-ui/Button';
+import Menu, { MenuItem } from 'material-ui/Menu';
 import Typography from 'material-ui/Typography';
 import IconButton from 'material-ui/IconButton';
 import Hidden from 'material-ui/Hidden';
 import MenuIcon from 'material-ui-icons/Menu';
+import ExpandMoreIcon from 'material-ui-icons/ExpandMore';
 
 import Routes from './components/Routes';
 import DrawerItems from './components/DrawerItems';
@@ -70,6 +72,7 @@ class App extends Component {
       user: null,
       signedIn: false,
       mobileOpen: false,
+      menuAnchor: null
     };
   }
 
@@ -93,7 +96,7 @@ class App extends Component {
 
   handleDrawerToggle = () => {
     this.setState({ mobileOpen: !this.state.mobileOpen });
-  }
+  };
 
   handleSignOut = () => {
     fetch('/api/signin', {
@@ -104,20 +107,29 @@ class App extends Component {
     .then(res => {
       this.setSignedIn(false, null);
     });
-  }
+  };
+
+  handleMenuClick = (e) => {
+    this.setState({ menuAnchor: e.currentTarget });
+  };
+
+  handleMenuClose = () => {
+    this.setState({ menuAnchor: null });
+  };
 
   setSignedIn = (signedIn, user) => {
     this.setState({ signedIn, user });
-  }
+    console.log(user);
+  };
 
   setPage = (path) => {
     const page = titleMap(path);
     this.setState({ page });
-  }
+  };
   
   render() {
     const { classes, theme } = this.props;
-    const { page, signedIn } = this.state;
+    const { page, signedIn, user, menuAnchor } = this.state;
 
     return (
       <div className={classes.root}>
@@ -133,7 +145,25 @@ class App extends Component {
             </IconButton>
             <Typography variant="title" color="inherit" className={classes.flex}>{page}</Typography>
             { !signedIn && <Button color="inherit" component={Link} to="/sign-in">Sign In</Button> }
-            { signedIn && <Button color="inherit" onClick={this.handleSignOut}>Sign Out</Button> }
+            { signedIn && 
+              <div>
+                <Button color='inherit' onClick={this.handleMenuClick}>
+                  {user.display_name}
+                  <ExpandMoreIcon />
+                </Button>
+                <Menu
+                  id='menu'
+                  anchorEl={menuAnchor}
+                  open={Boolean(menuAnchor)}
+                  onClose={this.handleMenuClose}
+                >
+                  <MenuItem component={Link} to='/profile'>Profile</MenuItem>
+                  <MenuItem component={Link} to='/profile'>Settings</MenuItem>
+                  <MenuItem onClick={this.handleSignOut}>Sign Out</MenuItem>
+                </Menu>
+              </div>
+            }
+            { /*signedIn && <Button color="inherit" >Sign Out</Button>*/ }
           </Toolbar>
         </AppBar>
         <Hidden mdUp>

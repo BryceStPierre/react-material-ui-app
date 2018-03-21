@@ -10,5 +10,5 @@ CREATE TABLE users (
 	joined TIMESTAMP DEFAULT current_timestamp
 );
 
-INSERT INTO users (email, password)
-  VALUES ('test','test');
+INSERT INTO users (email, password, display_name)
+  VALUES ('test','test','test');

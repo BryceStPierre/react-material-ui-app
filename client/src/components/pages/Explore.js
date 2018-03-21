@@ -16,14 +16,6 @@ import Grow from 'material-ui/transitions/Grow';
 import sample from '../../images/sample.png';
 
 const tileData = [
-  { title: 'Sample', author: 'Author', img: sample },
-  { title: 'Sample', author: 'Author', img: sample },
-  { title: 'Sample', author: 'Author', img: sample },
-  { title: 'Sample', author: 'Author', img: sample },
-  { title: 'Sample', author: 'Author', img: sample },
-  { title: 'Sample', author: 'Author', img: sample },
-  { title: 'Sample', author: 'Author', img: sample },
-  { title: 'Sample', author: 'Author', img: sample },
   { title: 'Sample', author: 'Author', img: sample }
 ];
 
@@ -53,7 +45,8 @@ class Explore extends Component {
   
     this.state = {
       search: '',
-      loading: false
+      loading: false,
+      columns: 3
     };
   }
   
@@ -66,9 +59,31 @@ class Explore extends Component {
     this.setState({ search: '' });
   }
 
+  componentWillMount () {
+    this.updateWindowDimensions();
+  }
+
+  componentDidMount() {
+    this.updateWindowDimensions();
+    window.addEventListener('resize', this.updateWindowDimensions);
+  }
+  
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateWindowDimensions);
+  }
+  
+  updateWindowDimensions = () => {
+    if (window.innerWidth >= 900)
+      this.setState({ columns: 3 });
+    else if (window.innerWidth >= 680)
+      this.setState({ columns: 2 });
+    else if (window.innerWidth >= 380)
+      this.setState({ columns: 1 });
+  };
+
   render() {
     const { classes } = this.props;
-    const { search, loading } = this.state;
+    const { search, loading, columns } = this.state;
 
     return (
       <div className={classes.root}>
@@ -95,9 +110,9 @@ class Explore extends Component {
           <GridList 
             className={classes.gridList} 
             cellHeight={180}
-            cols={3}
+            cols={columns}
           >
-            <GridListTile key='Subheader' cols={3} style={{ height: 'auto' }}>
+            <GridListTile key='Subheader' cols={columns} style={{ height: 'auto' }}>
               <Typography variant="title">
                 Results
               </Typography>

@@ -74,7 +74,7 @@ const DrawerItems = (props) => {
       <Divider />
       <List>
         <ListItem>
-          <Typography>
+          <Typography align='center'>
             Developed by Bryce St. Pierre
           </Typography>
         </ListItem>

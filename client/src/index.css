@@ -1,6 +1,5 @@
-body {
+html, body {
   margin: 0;
   padding: 0;
   background-color: '#fafafa';
-  font-family: 'Roboto', sans-serif;
 }
