@@ -10,6 +10,11 @@ module.exports = function (passport) {
     console.log('Authenticated successfully.');
     res.json(req.user);
   });
+  
+  router.delete('/', function (req, res) {
+    req.logout();
+    res.json(true);
+  });
 
   return router;
 };

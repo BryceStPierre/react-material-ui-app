@@ -95,6 +95,17 @@ class App extends Component {
     this.setState({ mobileOpen: !this.state.mobileOpen });
   }
 
+  handleSignOut = () => {
+    fetch('/api/signin', {
+      method: 'DELETE',
+      credentials: 'include'
+    })
+    .then(res => res.json())
+    .then(res => {
+      this.setSignedIn(false, null);
+    });
+  }
+
   setSignedIn = (signedIn, user) => {
     this.setState({ signedIn, user });
   }
@@ -122,7 +133,7 @@ class App extends Component {
             </IconButton>
             <Typography variant="title" color="inherit" className={classes.flex}>{page}</Typography>
             { !signedIn && <Button color="inherit" component={Link} to="/sign-in">Sign In</Button> }
-            { signedIn && <Button color="inherit">Sign Out</Button> }
+            { signedIn && <Button color="inherit" onClick={this.handleSignOut}>Sign Out</Button> }
           </Toolbar>
         </AppBar>
         <Hidden mdUp>
