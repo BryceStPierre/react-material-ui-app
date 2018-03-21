@@ -6,7 +6,7 @@ import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
 import Button from 'material-ui/Button';
 
-import error404 from './images/error404.png';
+import errorImage from '../../images/404.png';
 
 const styles = theme => ({
   root: {
@@ -29,7 +29,7 @@ class NotFound extends Component {
       <div className={classes.root}>
         <img
           className={classes.error}
-          src={error404} 
+          src={errorImage} 
           alt='Error'
         />
         <Typography 

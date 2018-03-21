@@ -13,7 +13,7 @@ import IconButton from 'material-ui/IconButton';
 import Hidden from 'material-ui/Hidden';
 import MenuIcon from 'material-ui-icons/Menu';
 
-import Routes from './Routes';
+import Routes from './components/Routes';
 import DrawerItems from './components/DrawerItems';
 
 import titleMap from './utils/titleMap';

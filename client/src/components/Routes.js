@@ -1,11 +1,11 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import Home from './Home';
-import Explore from './Explore';
-import NotFound from './NotFound';
-import SignIn from './components/forms/SignIn';
-import Register from './components/forms/Register';
+import Home from './pages/Home';
+import Explore from './pages/Explore';
+import NotFound from './pages/NotFound';
+import SignIn from './forms/SignIn';
+import Register from './forms/Register';
 
 const Routes = (props) => (
   <Switch>

@@ -13,7 +13,8 @@ import InfoIcon from 'material-ui-icons/Info';
 
 import Grow from 'material-ui/transitions/Grow';
 
-import sample from './images/sample.png';
+import sample from '../../images/sample.png';
+
 const tileData = [
   { title: 'Sample', author: 'Author', img: sample },
   { title: 'Sample', author: 'Author', img: sample },

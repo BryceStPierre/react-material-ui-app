@@ -1,25 +1,32 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
+import { withStyles } from 'material-ui/styles';
 import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
+import Typography from 'material-ui/Typography';
 import DescriptionIcon from 'material-ui-icons/Description';
 
 import logo from '../images/logo.svg';
 
-const styles = {
+const styles = theme => ({
   logo: { 
-    maxHeight: 55, 
+    height: 50, 
     margin: '0 auto'
   }
-};
+});
 
-export default function DrawerItems (props) {
+const DrawerItems = (props) => {
   return (
     <div>
       <List>
         <ListItem component={Link} to="/">
-          <img src={logo} alt="Logo" style={styles.logo} />
+          <img 
+            className={props.classes.logo} 
+            src={logo} 
+            alt="Logo" 
+          />
         </ListItem>
       </List>
       <Divider />
@@ -64,6 +71,20 @@ export default function DrawerItems (props) {
           <ListItemText primary="Privacy Policy" />
         </ListItem>
       </List>
+      <Divider />
+      <List>
+        <ListItem>
+          <Typography>
+            Developed by Bryce St. Pierre
+          </Typography>
+        </ListItem>
+      </List>
     </div>
   );
 }
+
+DrawerItems.propTypes = {
+  classes: PropTypes.object.isRequired
+};
+
+export default withStyles(styles)(DrawerItems);

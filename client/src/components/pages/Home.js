@@ -9,7 +9,7 @@ import Tooltip from 'material-ui/Tooltip';
 import AddIcon from 'material-ui-icons/Add';
 import Modal from 'material-ui/Modal';
 
-import thinker from './images/lightbulb.jpeg';
+import thinker from '../../images/thinker.jpeg';
 
 const styles = theme => ({
   root: {
