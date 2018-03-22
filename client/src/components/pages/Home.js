@@ -102,7 +102,7 @@ class Home extends Component {
             </Typography>
             <Button
               component={Link}
-              to='/create/skeam'
+              to='/skeam/new'
               className={classes.button}
               variant='raised'
               color='primary'
@@ -114,7 +114,7 @@ class Home extends Component {
             <br />
             <Button
               component={Link}
-              to='/create/template'
+              to='/template/new'
               className={classes.button}
               variant='raised'
               color='secondary'

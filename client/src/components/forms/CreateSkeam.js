@@ -14,12 +14,15 @@ class CreateSkeam extends Component {
     super(props);
 
     this.state = {
-
+      title: null,
+      description: null
     };
   }
 
   handleChange = (e) => {
-
+    this.setState({
+      [e.target.name]: e.target.value
+    });
   };
 
   handleSubmit = () => {
@@ -35,8 +38,7 @@ class CreateSkeam extends Component {
           Lets get started. We need a few details to get started.
         </Typography>
         <form onSubmit={this.handleSubmit}>
-          <TextField 
-            type='text'
+          <TextField
             name='title'
             label='Title'
             onChange={this.handleChange}
@@ -44,6 +46,7 @@ class CreateSkeam extends Component {
             required
           />
           <br />
+
         </form>
       </div>
     );
