@@ -1,10 +1,7 @@
-SELECT
- first_name,
- last_name,
- email
-FROM
- customer;
+SELECT * FROM skeams
+	INNER JOIN categories ON skeams.category = categories.id;
 
+UPDATE skeams SET edited = clock_timestamp() WHERE id = 2;
 
 CREATE TABLE link (
  ID serial PRIMARY KEY,
@@ -14,16 +11,9 @@ CREATE TABLE link (
  rel VARCHAR (50)
 );
 
-
-INSERT INTO link (url, name)
-VALUES
- ('http://www.postgresqltutorial.com','PostgreSQL Tutorial');
-
-
 DELETE FROM table
-WHERE table.id = (SELECT id FROM another_table);
-
-
+    WHERE table.id = (SELECT id FROM another_table);
+ 
 SELECT
  first_name,
  last_name
@@ -31,13 +21,6 @@ FROM
  customer
 ORDER BY
  first_name ASC;
-
-
-UPDATE table
-SET column1 = value1,
-    column2 = value2
-WHERE
- condition;
 
 
 SELECT last_name, first_name

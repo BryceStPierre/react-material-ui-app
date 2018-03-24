@@ -34,30 +34,51 @@ class CreateSkeam extends Component {
     super(props);
 
     this.state = {
-      title: null,
-      description: null,
-      category: 'miscellaneous',
-      access: true
+      fields: {
+        title: null,
+        description: null,
+        category: 1,
+        access: true
+      },
+      categories: [],
+      redirect: false
     };
   }
 
-  handleChange = (e) => {
-    this.setState({
-      [e.target.name]: e.target.value
+  componentWillMount () {
+    fetch('/api/categories', { credentials: 'include' })
+    .then((res) => res.json())
+    .then((categories) => {
+      let fields = {
+        title: null,
+        description: null,
+        category: categories[0].id,
+        access: true
+      };
+      this.setState({ fields, categories });
     });
+  } 
+
+  handleChange = (e) => {
+    let fields = Object.assign({}, this.state.fields);
+    fields[e.target.name] = e.target.value;
+    this.setState({ fields });
   };
 
   handleSwitch = (e, checked) => {
-    this.setState({ [e.target.name]: checked });
+    let fields = Object.assign({}, this.state.fields);
+    fields[e.target.name] = checked;
+    this.setState({ fields });
   };
 
   handleSubmit = (e) => {
     e.preventDefault();
+    console.log(this.state);
   };
   
   render() {
     const { classes } = this.props;
-    const { category, access } = this.state;
+    const { categories, fields, access } = this.state;
 
     return (
       <div>
@@ -92,19 +113,16 @@ class CreateSkeam extends Component {
               select
               label='Category'
               name='category'
-              value={category}
+              value={fields.category}
               onChange={this.handleChange}
               margin='normal'
               required
             >
-              <MenuItem key={2} value={'miscellaneous'}>
-                Miscellaneous
+            {categories.map(option => (
+              <MenuItem key={option.id} value={option.id}>
+                {option.category}
               </MenuItem>
-              {/*currencies.map(option => (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.label}
-                </MenuItem>
-              ))*/}
+            ))}
             </TextField>
             <br />
             <FormControl component='fieldset' margin='normal'>
@@ -115,7 +133,7 @@ class CreateSkeam extends Component {
                     <Switch
                       name='access'
                       color='secondary'
-                      checked={access}
+                      checked={fields.access}
                       onChange={this.handleSwitch}
                       value='public'
                     />

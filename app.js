@@ -8,6 +8,7 @@ var passport = require('./server/passport');
 
 var signin = require('./server/api/signin');
 var register = require('./server/api/register');
+var categories = require('./server/api/categories');
 
 const PORT = 3001;
 
@@ -23,6 +24,7 @@ app.use(passport.session());
 
 app.use('/api/signin', signin(passport));
 app.use('/api/register', register(passport));
+app.use('/api/categories', categories);
 
 var db = require('./server/database');
 db.query('SELECT NOW()', (res) => {
