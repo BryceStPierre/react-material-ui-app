@@ -5,7 +5,7 @@ class Categories {
 
   static retrieveAll (callback) {
     db.query('SELECT * FROM categories', function (res) {
-      callback(res ? res : null);
+      callback(res ? res : []);
     });
   }
 
