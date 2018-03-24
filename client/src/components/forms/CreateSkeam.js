@@ -74,11 +74,27 @@ class CreateSkeam extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     console.log(this.state);
+
+    fetch('/api/skeam', {
+      method: 'POST',
+      body: JSON.stringify(this.state.fields),
+      headers: {'Content-Type': 'application/json'},
+      credentials: 'include'
+    })
+    .then(res => res.json())
+    .then((skeam) => {
+      console.log(skeam);
+      // const redirect = skeam ? true : false;
+      // this.setState({ redirect });
+    });
   };
   
   render() {
     const { classes } = this.props;
-    const { categories, fields, access } = this.state;
+    const { redirect, categories, fields, access } = this.state;
+
+    if (redirect)
+      return <Redirect />;
 
     return (
       <div>
@@ -138,7 +154,7 @@ class CreateSkeam extends Component {
                       value='public'
                     />
                   }
-                  label={access ? 'Public' : 'Private'}
+                  label={fields.access ? 'Public' : 'Private'}
                 />
               </FormGroup>
             </FormControl>

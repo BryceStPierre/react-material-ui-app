@@ -31,6 +31,7 @@ CREATE TABLE skeams (
 	id SERIAL PRIMARY KEY NOT NULL,
 	category INTEGER REFERENCES categories(id) NOT NULL,
 	template INTEGER REFERENCES templates(id),
+	title VARCHAR(50) NOT NULL,
 	description VARCHAR(250) NOT NULL,
 	access BOOLEAN NOT NULL,
 	data JSON,
@@ -47,14 +48,11 @@ INSERT INTO categories (category)
 		('Tutorials'),
 		('Ideas');
 
-INSERT INTO skeams (category, description, access)
+INSERT INTO skeams (category, title, description, access)
 	VALUES 
-		(1, 'Sample description 1.', true),
-		(2, 'Sample description 2.', false),
-		(3, 'Sample description 3.', false);
+		(1, 'Sample1', 'Sample description 1.', true),
+		(2, 'Sample2', 'Sample description 2.', false),
+		(3, 'Sample3', 'Sample description 3.', false);
 
-SELECT * FROM skeams
-	INNER JOIN categories ON skeams.category = categories.id;
-
-UPDATE skeams SET edited = clock_timestamp() WHERE id = 2;
-SELECT * FROM skeams;
+INSERT INTO skeams (category, title, description, access) 
+	VALUES (2, 'Test', 'Test.', true) RETURNING id;
