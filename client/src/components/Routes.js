@@ -7,11 +7,13 @@ import Explore from './pages/Explore';
 import NotFound from './pages/NotFound';
 import SignIn from './forms/SignIn';
 import Register from './forms/Register';
+import CreateSkeam from './forms/CreateSkeam';
 
 const Routes = (props) => (
   <Switch>
     <Route exact path="/" component={Home} />
     <Route path="/explore" component={Explore} />
+    <Route path="/skeam/new" component={CreateSkeam} />
     <Route path="/skeam/:id" component={Skeam} />
     <Route 
       path="/sign-in" 

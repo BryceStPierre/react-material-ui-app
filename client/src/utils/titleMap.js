@@ -2,7 +2,8 @@ const routes = new Map([
   ['/', 'Skeam'],
   ['/explore', 'Explore'],
   ['/sign-in', 'Sign In'],
-  ['/register', 'Register']
+  ['/register', 'Register'],
+  ['/skeam/new', 'New Skeam']
 ]);
 
 export default function titleMap (path) {

@@ -41,6 +41,7 @@ class CreateSkeam extends Component {
         access: true
       },
       categories: [],
+      id: 0,
       redirect: false
     };
   }
@@ -73,7 +74,6 @@ class CreateSkeam extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log(this.state);
 
     fetch('/api/skeam', {
       method: 'POST',
@@ -82,19 +82,19 @@ class CreateSkeam extends Component {
       credentials: 'include'
     })
     .then(res => res.json())
-    .then((skeam) => {
-      console.log(skeam);
-      // const redirect = skeam ? true : false;
-      // this.setState({ redirect });
+    .then((res) => {
+      const id = res ? res : 0;
+      const redirect = id ? true : false;
+      this.setState({ id, redirect });
     });
   };
   
   render() {
     const { classes } = this.props;
-    const { redirect, categories, fields, access } = this.state;
+    const { redirect, id, categories, fields } = this.state;
 
     if (redirect)
-      return <Redirect />;
+      return <Redirect to={`${id}`} />;
 
     return (
       <div>
@@ -158,7 +158,6 @@ class CreateSkeam extends Component {
                 />
               </FormGroup>
             </FormControl>
-
             <Typography align='center'>
               <Button
                 type='submit'

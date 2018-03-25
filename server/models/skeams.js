@@ -8,7 +8,7 @@ class Skeams {
       skeam.description,
       skeam.access
     ], function (res) {
-      callback(res);
+      callback(res ? res[0].insert_skeam : null);
     });
   }
 
