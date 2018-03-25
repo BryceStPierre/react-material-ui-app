@@ -77,7 +77,7 @@ class App extends Component {
   }
 
   componentWillMount () {
-    this.setPage(this.props.location.pathname);
+    this.handlePageChange(this.props.location.pathname);
 
     fetch('/api/signin', { credentials: 'include' })
       .then(res => res.json())
@@ -91,7 +91,7 @@ class App extends Component {
 
   componentDidUpdate (prevProps) {
     if (this.props.location !== prevProps.location)
-      this.setPage(this.props.location.pathname);
+      this.handlePageChange(this.props.location.pathname);
   }
 
   handleDrawerToggle = () => {
@@ -122,8 +122,12 @@ class App extends Component {
     console.log(user);
   };
 
-  setPage = (path) => {
+  handlePageChange = (path) => {
     const page = titleMap(path);
+    this.handlePageTitleChange(page);
+  };
+
+  handlePageTitleChange = (page) => {
     this.setState({ page });
   };
   
@@ -191,7 +195,7 @@ class App extends Component {
         </Hidden>
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          <Routes onSignIn={this.setSignedIn} />
+          <Routes onSignIn={this.setSignedIn} onPageTitleChange={this.handlePageTitleChange}/>
         </main>
       </div>
     );

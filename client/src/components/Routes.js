@@ -14,7 +14,12 @@ const Routes = (props) => (
     <Route exact path="/" component={Home} />
     <Route path="/explore" component={Explore} />
     <Route path="/skeam/new" component={CreateSkeam} />
-    <Route path="/skeam/:id" component={Skeam} />
+    <Route 
+      path="/skeam/:id"
+      render={(routeProps) => (
+        <Skeam {...routeProps} onPageTitleChange={props.onPageTitleChange} />
+      )}
+    />
     <Route 
       path="/sign-in" 
       render={(routeProps) => (

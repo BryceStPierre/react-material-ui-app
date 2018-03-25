@@ -10,8 +10,8 @@ module.exports = function (passport) {
     });
   });
 
-  router.get('/', function (req, res) {
-    Skeams.retrieveById(req.body, function (skeam) {
+  router.get('/:id', function (req, res) {
+    Skeams.retrieveById(req.params.id, function (skeam) {
       res.json(skeam);
     })
   });
