@@ -5,10 +5,16 @@ var Skeams = require('../models/Skeams');
 
 module.exports = function (passport) {
   router.post('/', function (req, res) {
-    Skeams.create(req.body, function (data) {
-      res.json(data);
+    Skeams.create(req.body, function (id) {
+      res.json(id);
     });
   });
 
+  router.get('/', function (req, res) {
+    Skeams.retrieveById(req.body, function (skeam) {
+      res.json(skeam);
+    })
+  });
+  
   return router;
 };

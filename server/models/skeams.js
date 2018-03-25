@@ -12,7 +12,11 @@ class Skeams {
     });
   }
 
-  static retrieveById () {}
+  static retrieveById (id, callback) {
+    db.query(`SELECT * FROM skeams WHERE id = $1`, [id], function (res) {
+      callback(res ? res[0] : null);
+    })
+  }
 
   static update () {}
 
