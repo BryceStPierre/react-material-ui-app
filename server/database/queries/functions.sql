@@ -20,8 +20,7 @@ BEGIN
 END; $$
 LANGUAGE plpgsql;
 
--- Sample usage.
-SELECT insert_user('test', 'test', 'test');
+--SELECT insert_user('test', 'test', 'test');
 
 DROP FUNCTION insert_skeam(INTEGER, VARCHAR, VARCHAR, BOOLEAN);
 CREATE OR REPLACE FUNCTION insert_skeam(
@@ -39,5 +38,4 @@ BEGIN
 END; $$
 LANGUAGE plpgsql;
 
---
-SELECT insert_skeam(2, 'Test.', 'Test.', false);
+--SELECT insert_skeam(2, 'Test.', 'Test.', false);
