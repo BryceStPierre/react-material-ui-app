@@ -110,7 +110,7 @@ class CreateSkeam extends Component {
               name='title'
               label='Title'
               onChange={this.handleChange}
-              margin='normal'
+              margin='dense'
               required
             />
             <br />
@@ -118,7 +118,7 @@ class CreateSkeam extends Component {
               name='description'
               label='Description'
               onChange={this.handleChange}
-              margin='normal'
+              margin='dense'
               rowsMax={3}
               multiline
               fullWidth
