@@ -8,10 +8,22 @@ import Paper from 'material-ui/Paper';
 import Grid from 'material-ui/Grid';
 import Avatar from 'material-ui/Avatar';
 import Divider from 'material-ui/Divider';
+import IconButton from 'material-ui/IconButton';
+import ThumbUpIcon from 'material-ui-icons/ThumbUp';
+import ThumbDownIcon from 'material-ui-icons/ThumbDown';
 
 import blue from 'material-ui/colors/blue';
 
 import formatDate from '../../utils/formatDate';
+
+// FaStarHalfEmpty
+// react-icons/lib/fa/star-half-empty
+// FaStarHalf
+// react-icons/lib/fa/star-half
+// FaStarO
+// react-icons/lib/fa/star-o
+// FaStar
+// react-icons/lib/fa/star
 
 const styles = theme => ({
   root: {
@@ -19,6 +31,12 @@ const styles = theme => ({
   },
   paper: {
     padding: theme.spacing.unit * 2
+  },
+  icons: {
+    flexGrow: 8,
+    display: 'flex',
+    justifyContent: 'flex-end',
+    flexDirection: 'row'
   },
   row: {
     display: 'flex',
@@ -76,6 +94,14 @@ class Skeam extends Component {
                 <div className={classes.column}>
                   <Typography variant='subheading'>Username</Typography>
                   <Typography>Edited {formatDate(meta.edited)}</Typography>
+                </div>
+                <div className={classes.icons}>
+                  <IconButton color="secondary" className={classes.button} aria-label="Like">
+                    <ThumbUpIcon />
+                  </IconButton>
+                  <IconButton color="secondary" className={classes.button} aria-label="Dislike">
+                    <ThumbDownIcon />
+                  </IconButton>
                 </div>
               </div>
             </Paper>
