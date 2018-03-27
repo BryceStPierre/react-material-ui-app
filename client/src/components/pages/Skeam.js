@@ -25,6 +25,11 @@ import formatDate from '../../utils/formatDate';
 // FaStar
 // react-icons/lib/fa/star
 
+// FaHeartO
+// react-icons/lib/fa/heart-o
+// FaHeart
+// react-icons/lib/fa/heart
+
 const styles = theme => ({
   root: {
     flexGrow: 1,
