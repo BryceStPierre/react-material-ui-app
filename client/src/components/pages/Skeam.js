@@ -9,7 +9,9 @@ import Grid from 'material-ui/Grid';
 import Avatar from 'material-ui/Avatar';
 import Divider from 'material-ui/Divider';
 
-import deepOrange from 'material-ui/colors/deepOrange';
+import blue from 'material-ui/colors/blue';
+
+import formatDate from '../../utils/formatDate';
 
 const styles = theme => ({
   root: {
@@ -23,10 +25,14 @@ const styles = theme => ({
     justifyContent: 'left',
     alignItems: 'center'
   },
+  column: {
+    display: 'flex',
+    flexDirection: 'column'
+  },
   orangeAvatar: {
     margin: 10,
     color: '#fff',
-    backgroundColor: deepOrange[500],
+    backgroundColor: blue[500],
   }
 });
 
@@ -63,24 +69,22 @@ class Skeam extends Component {
     return (
       <div className={classes.root}>
         <Grid container spacing={24}>
-          <Grid item xs={12} sm={5}>
+          <Grid item xs={12}>
             <Paper className={classes.paper}>
-
-              <Typography variant='headline'>{meta.title}</Typography>
-              <Typography gutterBottom>{meta.description}</Typography>
-
-              <Divider />
-
               <div className={classes.row}>
-                <Avatar className={classes.orangeAvatar}>N</Avatar>
-                
-                <Typography>Sidebar</Typography>
+                <Avatar className={classes.orangeAvatar}>U</Avatar>
+                <div className={classes.column}>
+                  <Typography variant='subheading'>Username</Typography>
+                  <Typography>Edited {formatDate(meta.edited)}</Typography>
+                </div>
               </div>
-
             </Paper>
           </Grid>
-          <Grid item xs={12} sm={7}>
-            <Paper className={classes.paper}>xs=12 sm=6</Paper>
+          <Grid item xs={12}>
+            <Paper className={classes.paper}>
+              <Typography variant='headline'>{meta.title}</Typography>
+              <Typography gutterBottom>{meta.description}</Typography>
+            </Paper>
           </Grid>
         </Grid>
       </div>
