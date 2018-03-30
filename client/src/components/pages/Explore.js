@@ -5,7 +5,7 @@ import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
 import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
-
+import Grid from 'material-ui/Grid';
 import GridList, { GridListTile, GridListTileBar } from 'material-ui/GridList';
 import { CircularProgress } from 'material-ui/Progress';
 import IconButton from 'material-ui/IconButton';
@@ -46,12 +46,34 @@ class Explore extends Component {
     this.state = {
       search: '',
       loading: false,
-      columns: 3
+      columns: 3,
+      results: []
     };
+
+    this.timeout = null;
   }
   
   onChange = (e) => {
-    this.setState({ search: e.target.value });
+
+    this.setState({ 
+      search: e.target.value,
+      loading: true
+    });
+
+    clearTimeout(this.timeout);
+    this.timeout = setTimeout(() => {
+
+      console.log('Starting search...');
+      fetch(`/api/skeam/search/${this.state.search}`)
+      .then(res => res.json())
+      .then(res => {
+        this.setState({
+          loading: false,
+          results: res ? res : []
+        });
+      });
+
+    }, 750);
   }
 
   onClear = (e) => {
@@ -83,10 +105,11 @@ class Explore extends Component {
 
   render() {
     const { classes } = this.props;
-    const { search, loading, columns } = this.state;
+    const { results, search, loading, columns } = this.state;
 
     return (
       <div className={classes.root}>
+
         <TextField
           type='text'
           name='search'
@@ -98,6 +121,7 @@ class Explore extends Component {
           fullWidth
           autoFocus
         />
+
         <Button
           color='default'
           variant='raised'
@@ -106,7 +130,8 @@ class Explore extends Component {
           Clear
         </Button>
 
-        <div className={classes.container}>
+        {
+        !loading && <div className={classes.container}>
           <GridList 
             className={classes.gridList} 
             cellHeight={180}
@@ -118,13 +143,14 @@ class Explore extends Component {
               </Typography>
             </GridListTile>
 
-            {tileData.map((tile, i) => (
-              <Grow key={tile.img} timeout={{ enter: i * 500, exit: i * 500 + 500 }}  in>
+            {
+              results.map((r, i) => (
+              <Grow key={r.id} timeout={{ enter: i * 500, exit: i * 500 + 500 }}  in>
                 <GridListTile>
-                  <img src={tile.img} alt={tile.title} />
+                  <img src={sample} alt={r.title} />
                   <GridListTileBar
-                    title={tile.title}
-                    subtitle={<span>by: {tile.author}</span>}
+                    title={r.title}
+                    subtitle={<span>by: Author</span>}
                     actionIcon={
                       <IconButton className={classes.icon}>
                         <InfoIcon />
@@ -132,11 +158,13 @@ class Explore extends Component {
                     }
                   />
                 </GridListTile>
-              </Grow>
-            ))}
+              </Grow>))
+            }
           </GridList>
         </div>
-        { loading && <CircularProgress 
+        }
+        { 
+          loading && <CircularProgress 
           className={classes.progress}
           color='primary'
           size={75} />

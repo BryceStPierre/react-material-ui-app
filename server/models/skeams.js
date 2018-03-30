@@ -15,7 +15,14 @@ class Skeams {
   static retrieveById (id, callback) {
     db.query(`SELECT * FROM skeams WHERE id = $1`, [id], function (res) {
       callback(res ? res[0] : null);
-    })
+    });
+  }
+
+  static retrieveBySearch (query, callback) {
+    const q = `%${query}%`;
+    db.query(`SELECT * FROM skeams WHERE title LIKE $1`, [q], function (res) {
+      callback(res ? res : null);
+    });
   }
 
   static update () {}

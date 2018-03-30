@@ -15,6 +15,14 @@ module.exports = function (passport) {
       res.json(skeam);
     })
   });
+
+  router.get('/search/:query', function (req, res) {
+    console.log(`Query: ${req.params.query}...`);
+    Skeams.retrieveBySearch(req.params.query, function (results) {
+      console.log(results);
+      res.json(results);
+    });
+  });
   
   return router;
 };
