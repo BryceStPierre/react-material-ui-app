@@ -19,8 +19,6 @@ class Skeams {
   }
 
   static retrieveBySearch (query, callback) {
-    if (!query) return;
-    
     const q = `%${query}%`;
     db.query(`SELECT * FROM skeams WHERE LOWER(title) LIKE LOWER($1)`, [q], function (res) {
       callback(res ? res : null);
