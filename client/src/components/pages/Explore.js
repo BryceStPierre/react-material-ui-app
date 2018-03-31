@@ -5,7 +5,6 @@ import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
 import TextField from 'material-ui/TextField';
 import Button from 'material-ui/Button';
-import Grid from 'material-ui/Grid';
 import GridList, { GridListTile, GridListTileBar } from 'material-ui/GridList';
 import { CircularProgress } from 'material-ui/Progress';
 import IconButton from 'material-ui/IconButton';
@@ -14,10 +13,6 @@ import InfoIcon from 'material-ui-icons/Info';
 import Grow from 'material-ui/transitions/Grow';
 
 import sample from '../../images/sample.png';
-
-const tileData = [
-  { title: 'Sample', author: 'Author', img: sample }
-];
 
 const styles = theme => ({
   root: {
@@ -61,7 +56,7 @@ class Explore extends Component {
       loading: e.target.value !== ''
     });
 
-    if (e.target.value === '') return;
+    if (this.state.search === '') return;
 
     clearTimeout(this.timeout);
     this.timeout = setTimeout(() => {
