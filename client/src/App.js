@@ -80,13 +80,13 @@ class App extends Component {
     this.handlePageChange(this.props.location.pathname);
 
     fetch('/api/signin', { credentials: 'include' })
-      .then(res => res.json())
-      .then((user) => {
-        this.setState({ 
-          user: user, 
-          signedIn: user ? true : false 
-        });
+    .then(res => res.json())
+    .then((user) => {
+      this.setState({ 
+        user: user, 
+        signedIn: user ? true : false 
       });
+    });
   }
 
   componentDidUpdate (prevProps) {
