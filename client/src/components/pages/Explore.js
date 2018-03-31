@@ -28,11 +28,13 @@ const styles = theme => ({
     flexWrap: 'wrap',
     justifyContent: 'space-around',
     overflow: 'hidden'
-    //backgroundColor: theme.palette.background.paper,
   },
   gridList: {
     width: '100%',
     textAlign: 'left'
+  },
+  button: {
+    margin: theme.spacing.unit
   },
   progress: {
     margin: theme.spacing.unit * 2
@@ -54,11 +56,12 @@ class Explore extends Component {
   }
   
   onChange = (e) => {
-
     this.setState({ 
       search: e.target.value,
-      loading: true
+      loading: e.target.value !== ''
     });
+
+    if (e.target.value === '') return;
 
     clearTimeout(this.timeout);
     this.timeout = setTimeout(() => {
@@ -73,7 +76,7 @@ class Explore extends Component {
         });
       });
 
-    }, 750);
+    }, 250);
   }
 
   onClear = (e) => {
@@ -109,7 +112,6 @@ class Explore extends Component {
 
     return (
       <div className={classes.root}>
-
         <TextField
           type='text'
           name='search'
@@ -121,54 +123,71 @@ class Explore extends Component {
           fullWidth
           autoFocus
         />
-
         <Button
+          className={classes.button}
+          color='default'
+          variant='raised'
+        >
+          Advanced
+        </Button>
+        <Button
+          className={classes.button}
           color='default'
           variant='raised'
           onClick={this.onClear}
         >
           Clear
         </Button>
-
-        {
-        !loading && <div className={classes.container}>
-          <GridList 
-            className={classes.gridList} 
-            cellHeight={180}
-            cols={columns}
-          >
-            <GridListTile key='Subheader' cols={columns} style={{ height: 'auto' }}>
-              <Typography variant="title">
-                Results
+        {!loading && (
+          <div className={classes.container}>
+            <GridList 
+              className={classes.gridList} 
+              cellHeight={180}
+              cols={columns}
+            >
+              <GridListTile key='Subheader' cols={columns} style={{ height: 'auto' }}>
+                <Typography variant="title">
+                  Results
+                </Typography>
+              </GridListTile>
+              {
+                results.map((r, i) => (
+                <Grow key={r.id} timeout={{ enter: i * 500, exit: i * 500 + 500 }}  in>
+                  <GridListTile>
+                    <img src={sample} alt={r.title} />
+                    <GridListTileBar
+                      title={r.title}
+                      subtitle={<span>by: Author</span>}
+                      actionIcon={
+                        <IconButton className={classes.icon}>
+                          <InfoIcon />
+                        </IconButton>
+                      }
+                    />
+                  </GridListTile>
+                </Grow>))
+              }
+            </GridList>
+            {results.length === 0 && (
+              <Typography 
+                variant='subheading' 
+                margin='normal'
+                align='center'
+              >
+                No results to show.
               </Typography>
-            </GridListTile>
-
-            {
-              results.map((r, i) => (
-              <Grow key={r.id} timeout={{ enter: i * 500, exit: i * 500 + 500 }}  in>
-                <GridListTile>
-                  <img src={sample} alt={r.title} />
-                  <GridListTileBar
-                    title={r.title}
-                    subtitle={<span>by: Author</span>}
-                    actionIcon={
-                      <IconButton className={classes.icon}>
-                        <InfoIcon />
-                      </IconButton>
-                    }
-                  />
-                </GridListTile>
-              </Grow>))
-            }
-          </GridList>
-        </div>
-        }
-        { 
-          loading && <CircularProgress 
-          className={classes.progress}
-          color='primary'
-          size={75} />
-        }
+            )}
+          </div>
+        )}
+        {loading && (
+          <div>
+            <br />
+            <CircularProgress 
+              className={classes.progress}
+              color='primary'
+              size={75} />
+          </div>
+        )}
       </div>
     );
   }
