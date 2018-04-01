@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import { withStyles } from 'material-ui/styles';
 import Typography from 'material-ui/Typography';
@@ -8,7 +9,7 @@ import Button from 'material-ui/Button';
 import GridList, { GridListTile, GridListTileBar } from 'material-ui/GridList';
 import { CircularProgress } from 'material-ui/Progress';
 import IconButton from 'material-ui/IconButton';
-import InfoIcon from 'material-ui-icons/Info';
+import ArrowForwardIcon from 'material-ui-icons/ArrowForward';
 
 import Grow from 'material-ui/transitions/Grow';
 
@@ -154,8 +155,12 @@ class Explore extends Component {
                       title={r.title}
                       subtitle={<span>by: Author</span>}
                       actionIcon={
-                        <IconButton className={classes.icon}>
-                          <InfoIcon />
+                        <IconButton 
+                          className={classes.icon} 
+                          component={Link}
+                          to={`/skeam/${r.id}`}
+                        >
+                          <ArrowForwardIcon />
                         </IconButton>
                       }
                     />
