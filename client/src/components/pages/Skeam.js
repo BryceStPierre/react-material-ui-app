@@ -9,6 +9,9 @@ import Grid from 'material-ui/Grid';
 import Avatar from 'material-ui/Avatar';
 import Divider from 'material-ui/Divider';
 import IconButton from 'material-ui/IconButton';
+
+import SkeamAttribute from '../skeam/SkeamAttribute';
+
 import ThumbUpIcon from 'material-ui-icons/ThumbUp';
 import ThumbDownIcon from 'material-ui-icons/ThumbDown';
 
@@ -115,6 +118,9 @@ class Skeam extends Component {
             <Paper className={classes.paper}>
               <Typography variant='headline'>{meta.title}</Typography>
               <Typography gutterBottom>{meta.description}</Typography>
+
+              <SkeamAttribute />
+
             </Paper>
           </Grid>
         </Grid>
