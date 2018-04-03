@@ -1,9 +1,11 @@
-# Skeam
+# React Material UI App
 
-A collaborative and open platform for ideas and more. Built using React, Express.js, PostgreSQL, and Node.js.
+A sample React application that uses the Material UI component framework. Built using React, Express.js, PostgreSQL, and Node.js.
 
 ## Useful Packages Included
 
-* Material UI
+* Material UI V1
+* Material Design Icons
+* PostgreSQL client for Node.js
 * React Router
 * Passport
