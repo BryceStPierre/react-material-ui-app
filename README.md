@@ -1,6 +1,6 @@
 # React Material UI App
 
-A sample React application that uses the Material UI component framework. Built using React, Express.js, PostgreSQL, and Node.js.
+A sample React application that uses the Material UI component framework. Built using Express.js, PostgreSQL, and Node.js.
 
 ## Useful Packages Included
 
