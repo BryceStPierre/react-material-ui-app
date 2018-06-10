@@ -15,6 +15,8 @@ const PORT = process.env.PORT || 3001;
 
 var app = express();
 
+app.use(express.static(path.join(__dirname, 'client/build')));
+
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
