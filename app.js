@@ -15,6 +15,7 @@ const PORT = process.env.PORT || 3001;
 
 var app = express();
 
+// Required for build.
 app.use(express.static(path.join(__dirname, 'client/build')));
 
 app.use(cookieParser());
