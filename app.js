@@ -28,10 +28,10 @@ app.use('/api/register', register(passport));
 app.use('/api/categories', categories);
 app.use('/api/skeam', skeam(passport));
 
-// var db = require('./server/database');
-// db.query('SELECT NOW()', (res) => {
-//   console.log(`PostgreSQL connected: ${res[0].now}.`);
-// });
+var db = require('./server/database');
+db.query('SELECT NOW()', (res) => {
+  console.log(`PostgreSQL connected: ${res[0].now}.`);
+});
 
 app.listen(PORT, () => {
   console.log(`Server running on port 3001...`);

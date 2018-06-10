@@ -3,13 +3,15 @@ var pg = require('pg');
 class Database {
   constructor () {
     this._pool = new pg.Pool({
-      user: 'postgres',
-      host: 'localhost',
-      database: 'skeam',
-      password: 'postgres',
-      port: 5432,
-      min: 4,
-      max: 20
+      // user: 'postgres',
+      // host: 'localhost',
+      // database: 'skeam',
+      // password: 'postgres',
+      // port: 5432,
+      // min: 4,
+      // max: 20
+      connectionString: process.env.DATABASE_URL,
+      ssl: true
     });
 
     this._pool.on('error', (err, client) => {
