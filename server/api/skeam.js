@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-var Skeams = require('../models/Skeams');
+var Skeams = require('../models/skeams');
 
 module.exports = function (passport) {
   router.post('/', function (req, res) {
