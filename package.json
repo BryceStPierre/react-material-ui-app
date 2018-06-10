@@ -4,9 +4,9 @@
   "description": "A collaborative and open platform for ideas and more.",
   "private": true,
   "scripts": {
-    "start": "concurrently \"npm run server\" \"npm run client\"",
-    "client": "npm start --prefix client",
-    "server": "nodemon app",
+    "start": "node app",
+    "clientasda": "npm start --prefix client",
+    "serveradsa": "nodemon app",
     "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "repository": {
