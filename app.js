@@ -11,7 +11,7 @@ var bodyParser = require('body-parser');
 // var categories = require('./server/api/categories');
 // var skeam = require('./server/api/skeam');
 
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 
 var app = express();
 
